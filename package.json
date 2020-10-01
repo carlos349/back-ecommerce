@@ -1,0 +1,34 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "back para ecommerce",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlos349/back-ecommerce.git"
+  },
+  "keywords": [
+    "ecommerce"
+  ],
+  "author": "syswa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlos349/back-ecommerce/issues"
+  },
+  "homepage": "https://github.com/carlos349/back-ecommerce#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.12",
+    "nodemon": "^2.0.4"
+  }
+}
