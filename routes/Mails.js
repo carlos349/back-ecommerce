@@ -15,6 +15,7 @@ const storage = diskStorage({
 const upload = multer({
 	storage
 })
+
 const endpoindMail = require('../private/endpoindMail')
 const email = require('../modelsMail/Mails')
 const mailCredentials = require('../private/mail-credentials')
@@ -31,7 +32,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
     const Mail = conn.model('mails', mailSchema)
     const Client = conn.model('clients', mailSchema)
     const Promotion = conn.model('promotions', productSchema)
-    Mail.find()
+    Mail.find()git statsu
     .then(Mail => {
         if (Mail > 0) {
             Client.find()
