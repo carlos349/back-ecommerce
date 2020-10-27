@@ -33,7 +33,7 @@ categories.post('/', protectRoute, (req, res) => {
     Category.findOne({name: req.body.name})
     .then(findCategory => {
         if (!findCategory) {
-            Category.create({name: req.body.name})
+            Category.create({name: req.body.name,count:0})
             .then(createCategory => {
                 if (createCategory) {
                     res.json({status: 'category create', token: req.requestToken})

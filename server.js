@@ -22,6 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/users', require('./routes/Users.js'))
 app.use('/categories', require('./routes/Categories.js'))
 app.use('/clients', require('./routes/Clients.js'))
+app.use('/products', require('./routes/Products.js'))
+app.use('/sales', require('./routes/Sales.js'))
+app.use('/quotations', require('./routes/quotations.js'))
+// app.use('/mails', require('./routes/Mails.js'))
 app.use('/promotions', require('./routes/Promotions.js'))
 
 //Static files

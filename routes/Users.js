@@ -17,19 +17,23 @@ users.get('/createSuperUser', (req, res) => {
     })
     const User = conn.model('users', userSchema)
     const data = {
-        user: 'carlos.gomes349@gmail.com',
-        pass: '25430435',
+        user: 'admin@gmail.com',
+        pass: '1234',
         intents: 0,
         lastEntry: new Date(),
         createdAt: new Date()
     }
-    User.create(data)
-    .then(user => {
-        res.json(user)
+    bcrypt.hash(data.pass, 10, (err, hash) => {
+        data.pass = hash 
+        User.create(data)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(err => {
+            res.send(err)
+        })
     })
-    .catch(err => {
-        res.send(err)
-    })
+    
 })
 
 users.post('/', protectRoute, (req, res) => {

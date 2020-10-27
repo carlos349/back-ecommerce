@@ -16,7 +16,7 @@ const upload = multer({
 	storage
 })
 
-const endpoindMail = require('../private/endpoindMail')
+const endpoindMail = require('../private/endpointMail')
 const email = require('../modelsMail/Mails')
 const mailCredentials = require('../private/mail-credentials')
 const Mails = new email(mailCredentials)
@@ -32,7 +32,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
     const Mail = conn.model('mails', mailSchema)
     const Client = conn.model('clients', mailSchema)
     const Promotion = conn.model('promotions', productSchema)
-    Mail.find()git statsu
+    Mail.find()
     .then(Mail => {
         if (Mail > 0) {
             Client.find()

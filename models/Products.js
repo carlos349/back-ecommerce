@@ -12,7 +12,7 @@ const productSchema = new Schema ({
         type: Array
     },
     data: {
-        type: Object
+        type: Array
     },
     category: {
         type: String
@@ -34,6 +34,9 @@ const productSchema = new Schema ({
     },
     sales: {
         type: Number
+    },
+    reviews: {
+        type: Array
     },
     createdAt: {
         type: Date,

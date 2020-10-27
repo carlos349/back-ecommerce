@@ -9,7 +9,7 @@ const promotionSchema = new Schema ({
         type: String
     },
     image: {
-        type: String
+        type: Array
     },
     url: {
         type: String

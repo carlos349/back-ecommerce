@@ -37,7 +37,7 @@ promotions.get('/', async (req, res) => {
     }
 })
 
-promotions.post('/', protectRoute, upload.single("image"), (req, res) => {
+promotions.post('/', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -47,7 +47,7 @@ promotions.post('/', protectRoute, upload.single("image"), (req, res) => {
     const data = {
         name: req.body.name,
         description: req.body.description,
-        image: req.file.filename,
+        image: req.body.image,
         url: req.body.url,
         nameButton: req.body.nameButton
     }
@@ -87,7 +87,7 @@ promotions.delete('/:id', protectRoute, (req, res) => {
     })
 })
 
-promotions.put('/:id', protectRoute, upload.single("image"), (req, res) => {
+promotions.put('/:id', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -118,6 +118,7 @@ promotions.put('/:id', protectRoute, upload.single("image"), (req, res) => {
                 name: req.body.name,
                 description: req.body.description,
                 url: req.body.url,
+                image: req.body.image,
                 nameButton: req.body.nameButton
             }
         })
@@ -130,6 +131,10 @@ promotions.put('/:id', protectRoute, upload.single("image"), (req, res) => {
             res.send(err)
         })
     }
+})
+
+promotions.post('/uploadImage', upload.single("file"), (req, res) => {
+    res.json({status:"done",name:req.file.filename,url:"http://localhost:3200/static/promotions/"+req.file.filename, thumbUrl:"http://localhost:3200/static/promotions/"+req.file.filename})
 })
 
 module.exports = promotions

@@ -4,6 +4,9 @@ const { Schema } = mongoose;
 const categoriesSchema = new Schema ({
     name: {
         type: String
+    },
+    count: {
+        type: Number
     }
 })
 

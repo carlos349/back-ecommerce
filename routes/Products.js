@@ -1,5 +1,7 @@
 const express = require('express')
 const products = express.Router()
+const categories = express.Router()
+const categoriesSchema = require('../models/Categories')
 const mongoose = require('mongoose')
 const protectRoute = require('../securityToken/verifyToken')
 const productSchema = require('../models/Products')
@@ -27,9 +29,26 @@ products.get('/', async (req, res) => {
     const Product = conn.model('products', productSchema)
     try {
         const getProducts = await Product.find()
-        if (getProducts.length > 0) {
+        
             res.json(getProducts)
-        }
+        
+    }catch(err){
+        res.send(err)
+    }
+})
+
+products.get('/featured', async (req, res) => {
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Product = conn.model('products', productSchema)
+    try {
+        const getProducts = await Product.find().sort({sales:-1}).limit(6)
+        
+            res.json(getProducts)
+        
     }catch(err){
         res.send(err)
     }
@@ -52,7 +71,7 @@ products.get('/:id', async (req, res) => {
     }
 })
 
-products.post('/', protectRoute, upload.array('images', 3), (req, res) => {
+products.post('/', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -62,30 +81,36 @@ products.post('/', protectRoute, upload.array('images', 3), (req, res) => {
     const data = {
         name: req.body.name,
         description: req.body.description,
-        images: [],
+        images: req.body.images,
         data: req.body.data,
         category: req.body.category,
         freeShipping: req.body.freeShipping,
-        quantity: req.body.quantity,
+        quantity: req.body.quantify,
         price: req.body.price,
-        active: true,
+        active: req.body.active,
         discount: req.body.discount,
         sales: 0,
+        reviews:[],
         createdAt: new Date()
     }
-    for (let j = 0; j < req.files.length; j++) {
-        data.images.push(req.files[j].filename)
-    }
+    console.log(data.quantity)
     Product.findOne({name: data.name})
     .then(findProducts => {
         if (!findProducts) {
             Product.create(data)
             .then(createProduct => {
                 if (createProduct) {
-                    res.json({status: 'product create', token: req.requestToken})
+                    const Category = conn.model('categories', categoriesSchema)
+                    Category.update({name: req.body.category},{$inc:{count:1}})
+                    .then(update =>{
+                        if (update) {
+                            res.json({status: 'product create', token: req.requestToken})
+                        }
+                    })
+                    .catch(err => {
+                        res.send(err)
+                    })
                 }
-            }).catch(err => {
-                res.send(err)
             })
         }else{
             res.json({status: 'product exist'})
@@ -95,30 +120,19 @@ products.post('/', protectRoute, upload.array('images', 3), (req, res) => {
     })
 })
 
-products.put('/:id', protectRoute, upload.array('images', 3), (req, res) => {
+products.put('/:id', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
     const Product = conn.model('products', productSchema)
-    const images = []
-    for (let index = 0; index < req.files.length; index++) {
-        const element = req.files[index];
-        images.push(element.filename)
-    }
-    if (req.body.imagePrev != '') {
-        const split = req.body.imagePrev.split(',')
-        for (let indexTwo = 0; indexTwo < split.length; indexTwo++) {
-            const elementTwo = split[indexTwo];
-            images.push(elementTwo)
-        }
-    }
+
     Product.findByIdAndUpdate(req.params.id, {
         $set: {
             name: req.body.name,
             description: req.body.description,
-            images: images,
+            images: req.body.images,
             data: req.body.data,
             category: req.body.category,
             freeShipping: req.body.freeShipping,
@@ -129,14 +143,14 @@ products.put('/:id', protectRoute, upload.array('images', 3), (req, res) => {
     })
     .then(productEdit => {
         if (productEdit) {
-            res.json({status: 'product edit', image: images, token: req.requestToken})
+            res.json({status: 'product edit', token: req.requestToken})
         }
     }).catch(err => {
         res.send(err)
     })
 })
 
-products.put('/changeActive/:id', protectRoute, (req, res) => {
+products.get('/changeActive/:id', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -175,6 +189,28 @@ products.put('/changeActive/:id', protectRoute, (req, res) => {
     }).catch(err => {
         res.send(err)
     })
+})
+
+products.delete('/:id', protectRoute, async (req, res) => {
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Product = conn.model('products', productSchema)
+    try {
+        const productDelete = await Product.findByIdAndRemove(req.params.id)
+        if (productDelete) {
+            res.json({status: 'product delete', token: req.requestToken})
+        }
+    }catch(err){
+        res.send(err)
+    }
+})
+
+products.post('/uploadImage', upload.single("file"), (req, res) => {
+    
+    res.json({status:"done",name:req.file.filename,url:"http://localhost:3200/static/products/"+req.file.filename, thumbUrl:"http://localhost:3200/static/products/"+req.file.filename})
 })
 
 module.exports = products

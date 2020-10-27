@@ -55,8 +55,8 @@ clients.post('/register', (req, res) => {
         mail: req.body.mail,
         pass: req.body.pass,
         intents: 0,
-        address: [req.body.address],
-        phone: req.body.phone,
+        address: '',
+        phone: '',
         sales: 0,
         shopingCart: [],
         createdAt: new Date()
@@ -100,7 +100,7 @@ clients.post('/login', (req, res) => {
                         }
                     })
                     .then(edit => {
-                        res.json({status: 'client login'})
+                        res.json({status: 'client login',name: findClient.name,lastName:findClient.lastName,id:findClient._id})
                     }).catch(err => {
                         res.send(err)
                     })
