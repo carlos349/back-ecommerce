@@ -35,6 +35,12 @@ const productSchema = new Schema ({
     sales: {
         type: Number
     },
+    colors: {
+        type: Array
+    },
+    filters: {
+        type: Array
+    },
     reviews: {
         type: Array
     },

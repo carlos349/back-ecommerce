@@ -27,6 +27,7 @@ app.use('/sales', require('./routes/Sales.js'))
 app.use('/quotations', require('./routes/quotations.js'))
 // app.use('/mails', require('./routes/Mails.js'))
 app.use('/promotions', require('./routes/Promotions.js'))
+app.use('/filters', require('./routes/Filters.js'))
 
 //Static files
 

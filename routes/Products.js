@@ -29,9 +29,7 @@ products.get('/', async (req, res) => {
     const Product = conn.model('products', productSchema)
     try {
         const getProducts = await Product.find()
-        
-            res.json(getProducts)
-        
+        res.json(getProducts)
     }catch(err){
         res.send(err)
     }
@@ -46,9 +44,7 @@ products.get('/featured', async (req, res) => {
     const Product = conn.model('products', productSchema)
     try {
         const getProducts = await Product.find().sort({sales:-1}).limit(6)
-        
-            res.json(getProducts)
-        
+        res.json(getProducts)
     }catch(err){
         res.send(err)
     }
@@ -90,10 +86,12 @@ products.post('/', protectRoute, (req, res) => {
         active: req.body.active,
         discount: req.body.discount,
         sales: 0,
+        colors: req.body.colors,
+        filters: req.body.filters,
         reviews:[],
         createdAt: new Date()
     }
-    console.log(data.quantity)
+    console.log(data)
     Product.findOne({name: data.name})
     .then(findProducts => {
         if (!findProducts) {
