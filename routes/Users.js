@@ -81,6 +81,7 @@ users.post('/login', (req, res) => {
     })
     const User = conn.model('users', userSchema)
     const today = new Date()
+    console.log(req.body.user)
     User.findOne({user: req.body.user})
     .then(findUser => {
         if (findUser) {

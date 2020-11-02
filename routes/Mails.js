@@ -16,7 +16,7 @@ const upload = multer({
 	storage
 })
 
-const endpoindMail = require('../private/endpointMail')
+const endpointMail = require('../private/endpointMail')
 const email = require('../modelsMail/Mails')
 const mailCredentials = require('../private/mail-credentials')
 const Mails = new email(mailCredentials)
@@ -191,7 +191,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
                               <tr>
                                 <td style="width:90px;">
                                   
-                          <img height="auto" src="${endpoindMail}/static/logo/${Mail[0].logo}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="90">
+                          <img height="auto" src="${endpointMail}/static/logos/${Mail[0].logo}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="90">
                         
                                 </td>
                               </tr>
@@ -467,7 +467,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
                               <tr>
                                 <td style="width:600px;">
                                   
-                          <img height="auto" src="${endpoindMail}/static/promotions/${promotion.image} style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+                          <img height="auto" src="${endpointMail}/static/promotions/${promotion.image} style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
                         
                                 </td>
                               </tr>
@@ -686,7 +686,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                                 <tbody>
                                 <tr>
                                     <td style="width:72px;">
-                            <img height="auto" src="${endpoindMail}/static/logo/${Mail[0].logo}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="72">
+                            <img height="auto" src="${endpointMail}/static/logos/${Mail[0].logo}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="72">
                             
                                     </td>
                                 </tr>
@@ -817,7 +817,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                                 <tr>
                                     <td style="width:255px;">
                                     
-                            <img height="auto" src="${endpoindMail}/static/products/${products[0].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
+                            <img height="auto" src="${endpointMail}/static/products/${products[0].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
                             
                                     </td>
                                 </tr>
@@ -878,7 +878,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                                 <tr>
                                     <td style="width:255px;">
                                     
-                            <img height="auto" src="${endpoindMail}/static/products/${products[1].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
+                            <img height="auto" src="${endpointMail}/static/products/${products[1].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
                             
                                     </td>
                                 </tr>
@@ -975,7 +975,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                                 <tr>
                                     <td style="width:255px;">
                                     
-                            <img height="auto" src="${endpoindMail}/static/products/${products[2].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
+                            <img height="auto" src="${endpointMail}/static/products/${products[2].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
                             
                                     </td>
                                 </tr>
@@ -1036,7 +1036,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                                 <tr>
                                     <td style="width:255px;">
                                     
-                            <img height="auto" src="${endpoindMail}/static/products/${products[3].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
+                            <img height="auto" src="${endpointMail}/static/products/${products[3].images[0]}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="255">
                             
                                     </td>
                                 </tr>
@@ -1325,6 +1325,7 @@ mails.post('/', protectRoute, upload.single("image"), (req, res) => {
         facebook: req.body.facebook,
         instagram: req.body.instagram,
         twitter: req.body.twitter,
+        whatsapp: req.body.whatsapp,
         logo: req.file.filename
     }
     Mail.create(data)
@@ -1335,6 +1336,10 @@ mails.post('/', protectRoute, upload.single("image"), (req, res) => {
     }).catch(err => {
         res.send(err)
     })
+})
+
+mails.post('/uploadImage', upload.single("file"), (req, res) => {
+  res.json({status:"done",name:req.file.filename, url:"http://localhost:3200/static/logos/"+req.file.filename, thumbUrl:"http://localhost:3200/static/logos/"+req.file.filename})
 })
 
 mails.put('/:id', protectRoute, upload.single("image"), (req, res) => {
@@ -1352,6 +1357,7 @@ mails.put('/:id', protectRoute, upload.single("image"), (req, res) => {
                 facebook: req.body.facebook,
                 instagram: req.body.instagram,
                 twitter: req.body.twitter,
+                whatsapp: req.body.whatsapp,
                 logo: req.file.filename
             }
         }).then(mailEdit => {

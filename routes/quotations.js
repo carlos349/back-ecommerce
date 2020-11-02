@@ -64,51 +64,27 @@ quotations.delete('/:id', protectRoute, (req, res) => {
     })
 })
 
-quotations.put('/:id', protectRoute, (req, res) => {
+quotations.put('/:id', (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
     const Quotation = conn.model('quotations', quotationsSchema)
-    if(req.file){
-        Quotation.findByIdAndUpdate(req.params.id, {
-            $set: {
-                name: req.body.name,
-                description: req.body.description,
-                image: req.file.filename,
-                url: req.body.url,
-                nameButton: req.body.nameButton
-            }
-        })
-        .then(QuotationEdit => {
-            if (QuotationEdit) {
-                res.json({status: 'Quotation edit', token: req.requestToken})
-            }
-        })
-        .catch(err => {
-            res.send(err)
-        })
-    }else{
-        Quotation.findByIdAndUpdate(req.params.id, {
-            $set: {
-                name: req.body.name,
-                description: req.body.description,
-                url: req.body.url,
-                image: req.body.image,
-                nameButton: req.body.nameButton
-            }
-        })
-        .then(QuotationEdit => {
-            if (QuotationEdit) {
-                res.json({status: 'Quotation edit', token: req.requestToken})
-            }
-        })
-        .catch(err => {
-            res.send(err)
-        })
-    }
-})
 
+    Quotation.findByIdAndUpdate(req.params.id, {
+        $set: {
+            status: req.body.status
+        }
+    })
+    .then(changeStatus => {
+        if (changeStatus) {
+            res.json({status: 'status changed'})
+        }
+    }).catch(err => {
+        res.send(err)
+    })
+    
+})
 
 module.exports = quotations

@@ -67,6 +67,33 @@ products.get('/:id', async (req, res) => {
     }
 })
 
+products.put('/addComment/:id', (req, res) => {
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Product = conn.model('products', productSchema)
+    const review = {
+        rating: req.body.rating,
+        user: req.body.user, 
+        comment: req.body.comment,
+        createdAt: new Date()
+    }
+    Product.findByIdAndUpdate(req.params.id, {
+        $push: {
+            reviews: review
+        }
+    })
+    .then(addReview => {
+        if (addReview) {
+            res.json({status: 'product commented'})
+        }
+    }).catch(err => {
+        res.send(err)
+    })
+})
+
 products.post('/', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {

@@ -17,7 +17,10 @@ const mailSchema = new Schema ({
         type: String
     },
     twitter: {
-        type: Number
+        type: String
+    },
+    whatsapp: {
+        type: String
     },
     logo: {
         type: Array,
