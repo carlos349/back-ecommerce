@@ -36,7 +36,7 @@ users.get('/createSuperUser', (req, res) => {
     
 })
 
-users.post('/', protectRoute, (req, res) => {
+users.post('/', (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
