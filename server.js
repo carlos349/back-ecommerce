@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 
 
 // settings
-app.set('port', process.env.PORT || 3200)
+app.set('port', process.env.PORT || 2200)
 app.set('trust proxy', true);
 
 //middlewares
