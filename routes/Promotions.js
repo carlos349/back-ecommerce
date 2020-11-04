@@ -134,7 +134,7 @@ promotions.put('/:id', protectRoute, (req, res) => {
 })
 
 promotions.post('/uploadImage', upload.single("file"), (req, res) => {
-    res.json({status:"done",name:req.file.filename,url:"http://localhost:3200/static/promotions/"+req.file.filename, thumbUrl:"http://localhost:3200/static/promotions/"+req.file.filename})
+    res.json({status:"done",name:req.file.filename, url:"https://backecommerce.syswa.net/static/promotions/"+req.file.filename, thumbUrl:"https://backecommerce.syswa.net/static/promotions/"+req.file.filename})
 })
 
 module.exports = promotions
