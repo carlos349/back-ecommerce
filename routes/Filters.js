@@ -6,7 +6,7 @@ const filterSchema = require('../models/Filters')
 const cors = require('cors')
 filters.use(cors())
 
-filters.get('/', protectRoute, async (req, res) => {
+filters.get('/', async (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
