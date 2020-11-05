@@ -22,7 +22,7 @@ const mailSchema = new Schema ({
     whatsapp: {
         type: String
     },
-    logo: {
+    img: {
         type: Array,
         required:true
     }
