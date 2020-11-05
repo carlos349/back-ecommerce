@@ -235,7 +235,7 @@ products.delete('/:id', protectRoute, async (req, res) => {
 
 products.post('/uploadImage', upload.single("file"), (req, res) => {
     
-    res.json({status:"done",name:req.file.filename,url:"http://localhost:3200/static/products/"+req.file.filename, thumbUrl:"http://localhost:3200/static/products/"+req.file.filename})
+    res.json({status:"done",name:req.file.filename,url:"https://backecommerce.syswa.net/static/products/"+req.file.filename, thumbUrl:"https://backecommerce.syswa.net/static/products/"+req.file.filename})
 })
 
 module.exports = products
