@@ -57,7 +57,7 @@ promotions.post('/', protectRoute, (req, res) => {
             Promotion.create(data)
             .then(promotionCreate => {
                 if (promotionCreate) {
-                    res.json({status: 'promotion create', token: req.requestToken})
+                    res.json({status: 'promotion create', id: promotionCreate._id, token: req.requestToken})
                 }
             }).catch(err => {
                 res.send(err)

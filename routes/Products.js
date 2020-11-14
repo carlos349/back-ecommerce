@@ -152,7 +152,6 @@ products.put('/:id', protectRoute, (req, res) => {
         useUnifiedTopology: true,
     })
     const Product = conn.model('products', productSchema)
-
     Product.findByIdAndUpdate(req.params.id, {
         $set: {
             name: req.body.name,
@@ -163,7 +162,9 @@ products.put('/:id', protectRoute, (req, res) => {
             freeShipping: req.body.freeShipping,
             quantity: req.body.quantity,
             price: req.body.price,
-            discount: req.body.discount
+            discount: req.body.discount,
+            colors: req.body.colors,
+            filters: req.body.filters
         }
     })
     .then(productEdit => {
