@@ -7,7 +7,7 @@ const multer = require('multer')
 const { diskStorage } = require('multer')
 const path = require('path')
 const storage = diskStorage({
-	destination: 'public/logo',
+	destination: 'public/logos',
 	filename: (req, file, cb) => {
 		cb(null, Date.now() + path.extname(file.originalname));
 	}
@@ -21,6 +21,7 @@ const email = require('../modelsMail/Mails')
 const mailCredentials = require('../private/mail-credentials')
 const Mails = new email(mailCredentials)
 const cors = require('cors')
+const { json } = require('express')
 mails.use(cors())
 
 mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
@@ -1293,26 +1294,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
     })
 })
 
-mails.get('/', protectRoute, (req, res) => {
-    const database = req.headers['x-database-connect'];
-    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    const Mail = conn.model('mails', mailSchema)
-    Mail.find()
-    .then(Mail => {
-        if (Mail > 0) {
-            res.json({status: 'have mail'})
-        }else{
-            res.json({status: 'register mail'})
-        }
-    }).catch(err => {
-        res.send(err)
-    })
-})
-
-mails.post('/', protectRoute, upload.single("image"), (req, res) => {
+mails.post('/', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -1326,11 +1308,11 @@ mails.post('/', protectRoute, upload.single("image"), (req, res) => {
         instagram: req.body.instagram,
         twitter: req.body.twitter,
         whatsapp: req.body.whatsapp,
-        logo: req.file.filename
+        img: req.body.img
     }
     Mail.create(data)
     .then(registerMail => {
-        if (registerMail > 0) {
+        if (registerMail) {
             res.json({status: 'mail register', token: req.requestToken})
         }
     }).catch(err => {
@@ -1338,52 +1320,54 @@ mails.post('/', protectRoute, upload.single("image"), (req, res) => {
     })
 })
 
-mails.post('/uploadImage', upload.single("file"), (req, res) => {
-  res.json({status:"done",name:req.file.filename, url:"http://localhost:3200/static/logos/"+req.file.filename, thumbUrl:"http://localhost:3200/static/logos/"+req.file.filename})
+mails.get('/ifMail', (req, res) => {
+  const database = req.headers['x-database-connect'];
+  const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+  })
+  const Mail = conn.model('mails', mailSchema)
+
+  Mail.find()
+  .then(getMails => {
+    if (getMails.length > 0) {
+      res.json({status: 'mail exist', mailData: getMails[0]})
+    }else{
+      res.json({status: 'mail does exist'})
+    }
+  }).catch(err => {
+    res.send(err)
+  })
 })
 
-mails.put('/:id', protectRoute, upload.single("image"), (req, res) => {
+mails.post('/uploadImage', upload.single("file"), (req, res) => {
+  res.json({status:"done",name:req.file.filename, url:"https://backecommerce.syswa.net/static/logos/"+req.file.filename, thumbUrl:"https://backecommerce.syswa.net/static/logos/"+req.file.filename})
+})
+
+mails.put('/:id', protectRoute, (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
     const Mail = conn.model('mails', mailSchema)
-    if(req.file){
-        Mail.findByIdAndUpdate(req.params.id, {
-            $set: {
-                mail: req.body.mail,
-                website: req.body.website,
-                facebook: req.body.facebook,
-                instagram: req.body.instagram,
-                twitter: req.body.twitter,
-                whatsapp: req.body.whatsapp,
-                logo: req.file.filename
-            }
-        }).then(mailEdit => {
-            if (mailEdit) {
-                res.json({status: 'mail edit', token: req.requestToken})
-            }
-        }).catch(err => {
-            res.send(err)
-        })
-    }else{
-        Mail.findByIdAndUpdate(req.params.id, {
-            $set: {
-                mail: req.body.mail,
-                website: req.body.website,
-                facebook: req.body.facebook,
-                instagram: req.body.instagram,
-                twitter: req.body.twitter
-            }
-        }).then(mailEdit => {
-            if (mailEdit) {
-                res.json({status: 'mail edit', token: req.requestToken})
-            }
-        }).catch(err => {
-            res.send(err)
-        })
-    }
+    Mail.findByIdAndUpdate(req.params.id, {
+        $set: {
+            mail: req.body.mail,
+            website: req.body.website,
+            facebook: req.body.facebook,
+            instagram: req.body.instagram,
+            twitter: req.body.twitter,
+            whatsapp: req.body.whatsapp,
+            img: req.body.img
+        }
+    }).then(mailEdit => {
+        if (mailEdit) {
+            res.json({status: 'mail edit', token: req.requestToken})
+        }
+    }).catch(err => {
+        res.send(err)
+    })
 })
 
 module.exports = mails
