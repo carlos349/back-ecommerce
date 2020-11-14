@@ -56,7 +56,7 @@ clients.post('/register', (req, res) => {
         pass: req.body.pass,
         intents: 0,
         address: '',
-        phone: '',
+        phone: req.body.phone,
         sales: 0,
         shopingCart: [],
         createdAt: new Date()

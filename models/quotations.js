@@ -12,6 +12,9 @@ const quotationsSchema = new Schema ({
     dataClient: {
         type: Object
     },
+    clientId: {
+        type: String
+    },
     status: {
         type:String
     }
