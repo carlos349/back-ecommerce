@@ -35,7 +35,8 @@ quotations.post('/', (req, res) => {
     const data = {
         products: req.body.products,
         dataClient: req.body.dataClient,
-        status: 'pending'
+        status: 'pending',
+        clientId: req.body.clientId
     }
     Quotation.create(data)
     .then(QuotationCreate => {
@@ -85,6 +86,23 @@ quotations.put('/:id', (req, res) => {
         res.send(err)
     })
     
+})
+
+quotations.get('/:id', async (req, res) => {
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Quotation = conn.model('quotations', quotationsSchema)
+    try {
+        const getClient = await Quotation.find({clientId:req.params.id})
+        if (getClient) {
+            res.json(getClient)
+        }
+    }catch(err){
+        res.send(err)
+    }
 })
 
 module.exports = quotations
