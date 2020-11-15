@@ -533,7 +533,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
     })
 })
 
-mails.get('/mailRegister/:id', protectRoute, (req, res) => {
+mails.get('/mailRegister/:id', (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -550,7 +550,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                 Product.find().sort({createdAt: -1}).limit(4)
                 .then(products => {
                     const mailObject = {
-                        from: 'syswainfo@gmail.com',
+                        from: 'carlos.gomes349@gmail.com',
                         to: client.mail,
                         subject: 'Bienvenido a '+Mail[0].website,
                         html: `

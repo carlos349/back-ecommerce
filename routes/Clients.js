@@ -68,7 +68,7 @@ clients.post('/register', (req, res) => {
 				data.pass = hash
 				Client.create(data)
 				.then(clientCreate => {
-					res.json({status: 'client create'})
+					res.json({status: 'client create',id: clientCreate._id})
 				})
 				.catch(err => {
 					res.send(err)
