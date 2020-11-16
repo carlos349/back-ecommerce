@@ -36,6 +36,9 @@ const clientSchema = new Schema ({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    codigoRescue:{
+        type:String
     }
 })
 

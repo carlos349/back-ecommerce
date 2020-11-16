@@ -192,4 +192,42 @@ clients.put('/rescuePass/:id', (req, res) => {
     })
 })
 
+
+clients.post('/rescueChange', (req, res) => {
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Client = conn.model('clients', clientSchema)
+
+    const password = req.body.password
+    const code = req.body.code
+
+    Client.findOne({codigoRescue: code})
+    .then(rescue => {
+        if (rescue) {
+            bcrypt.hash(password, 10, (err, hash) => {
+                Client.findByIdAndUpdate(rescue._id, {
+                    $set: {pass: hash}
+                })
+                .then(change => {
+                    if (change) {
+                        res.json({status: 'ok'})
+                    }else{
+                        res.json({status: 'bad'})
+                    }
+                }).catch(err => {
+                    res.send(err)
+                })
+            })
+        }else{
+            res.json({status: 'bad'})
+        }
+    }).catch(err => {
+        res.send(err)
+    })
+
+})
+
 module.exports = clients
