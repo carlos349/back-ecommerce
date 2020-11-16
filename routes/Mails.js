@@ -150,8 +150,8 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
                               }</style>
                           
                         </head>
-                        <body style="background-color:#3E3E3E;">
-                        <div style="background-color:#3E3E3E;">
+                        <body>
+                        <div>
                         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#515151;background-color:#515151;width:100%;">
                           <tbody>
                             <tr>
@@ -471,7 +471,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
                             <tr>
                               <td style="width:600px;">
                                 
-                        <img height="auto" src="${promotion.image[0].url} style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+                        <img height="auto" src="${promotion.image[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
                       
                               </td>
                             </tr>
