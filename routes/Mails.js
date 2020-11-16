@@ -533,7 +533,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
     })
 })
 
-mails.get('/mailRegister/:id', protectRoute, (req, res) => {
+mails.get('/mailRegister/:id', (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -550,7 +550,7 @@ mails.get('/mailRegister/:id', protectRoute, (req, res) => {
                 Product.find().sort({createdAt: -1}).limit(4)
                 .then(products => {
                     const mailObject = {
-                        from: 'syswainfo@gmail.com',
+                        from: 'carlos.gomes349@gmail.com',
                         to: client.mail,
                         subject: 'Bienvenido a '+Mail[0].website,
                         html: `
@@ -1373,6 +1373,413 @@ mails.put('/:id', protectRoute, (req, res) => {
     }).catch(err => {
         res.send(err)
     })
+})
+
+mails.post('/contacMail', async (req, res) => {
+  const mail = {
+      from: "creacionesapicolasaleo.com",
+      to: req.body.email,
+      subject: 'Información a cliente',
+      html: `
+          <div style="width: 100%; padding:0;text-align:center;">
+              <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo creacionesapicolasaleo">
+                  </div>
+              </div>
+              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
+                  <center>
+                      <div style="width:60%;text-align: center;">
+                          <h1 style="text-align: center;color:#172b4d;">Bienvenid@ </h1>
+                          <p style="text-align:left;margin-top:10px;font-size:16px;"> <strong>Hola ${req.body.name}.</p>
+                          <p style="text-align:left;font-weight: 300;margin:auto;font-size:13px;"><strong> 
+                              Hemos recibido tu solicitud de contacto, a la brevedad nos comunicaremos para responder tus dudas o
+                              consultas.</strong><br><br>
+                              <span style="text-align:center">Detalle del mensaje: ${req.body.message}</span>
+                          </p>
+                      <div>
+                  </center>
+              </div>
+              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:8px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
+                      <center>
+                  <div style="width:100%;">
+                      <center>
+                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
+                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
+                      </a>
+                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
+                      </a>
+                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
+                      </a>
+                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
+                      </a>
+                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
+                      </a>
+                      </center>
+                  </div>
+                  </center>
+              </div>
+          </div>
+      `
+  }
+  const mailTwo = {
+      from: "creacionesapicolasaleo.com",
+      to: 'creacionesapicolasaleo@gmail.com',
+      subject: req.body.subject,
+      html: `
+          <div style="width: 100%; padding:0;text-align:center;">
+              <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo apicolasaleo">
+                  </div>
+              </div>
+              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
+                  <center>
+                      <div style="width:60%;text-align: center;">
+                          
+                          <p style="text-align:center;margin-top:10px;font-size:30px;"> Solicitud de contacto</p>
+                          <p style="text-align:center;font-weight: 300;margin:auto;font-size:13px;">
+                          <strong> 
+                          nombre: ${req.body.name} <br>
+                          correo: ${req.body.email} <br>
+                          </strong> <br><br>
+                          Mensaje: ${req.body.message}
+                          </p>
+                      <div>
+                  </center>
+              </div>
+          </div>
+      `
+  }
+  try{
+      const send = await Mails.sendMail(mail)
+      try {
+          const sendtwo = await Mails.sendMail(mailTwo)
+          res.json({status: 'ok'})
+      }
+      catch(err){
+          res.send(err)
+      }
+  }catch(err){
+      
+  }
+  
+})
+
+mails.post('/subs', async (req, res, next) => {
+  var array = {}
+  let mail = {}
+      array = {
+          to: req.body.to
+      }
+      mail = {
+          from: "Creaciones apicolas aleo",
+          to: array.to,
+          subject: 'Informacion a cliente',
+          html: `
+          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
+              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo apicolas">
+                  </div>
+              </div>
+              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;paddin-left:2px;">
+                  <center>
+                      <div style="width:100%;text-align: center;">
+                          <h1 style="text-align: center;color:#181d81;">Bienvenido(a) </h1>
+                          <hr style="border-top: 1.5px solid #f0f1f3;">
+                          <p style="text-align:center;margin-top:10px;font-size:16px;"> <strong>Hola</p>
+                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 90%;margin:auto;">
+                              <strong> 
+                                  Nos alegra que te hayas suscrito en nuestro sitio web, por este medio te enviaremos todas las novedades de nuestros servicios.
+                              </strong>
+                          </p>
+                      <div>
+                  </center>
+              </div>
+              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;padding:10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:10px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
+                  <center>
+                  <div style="width:100%;">
+                      <center>
+                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
+                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
+                      </a>
+                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
+                      </a>
+                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
+                      </a>
+                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
+                      </a>
+                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
+                      </a>
+                      </center>
+                  </div>
+                  </center>
+              </div>
+          </div>
+          `
+      }
+      mailTwo = {
+          from: "Creaciones apicolas aleo",
+          to: 'creacionesapicolasaleo@gmail.com',
+          subject: 'Nueva suscripción de cliente',
+          html: `
+          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
+              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo syswa">
+                  </div>
+              </div>
+              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;">
+                  <center>
+                      <div style="width:90%;text-align: center;">
+                          <h1 style="text-align: center;color:#181d81;">Actualización de clientes</h1>
+                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 80%;margin:auto;">
+                          <strong> Se ha suscrito un nuevo cliente con el correo ${array.to}</strong>
+                          </p>
+                      <div>
+                  </center>
+              </div>
+          </div>
+          `
+      }
+  
+  try{
+      const send = await Mails.sendMail(mail)
+      try {
+          const sendTwo = await Mails.sendMail(mailTwo)
+          res.json({status: 'ok'})
+      }catch(err) {
+          res.send(err)
+      }
+  }catch(err){
+      res.send(err)
+  }
+})
+
+mails.post('/quotation', async (req, res, next) => {
+  var array = {}
+  let mail = {}
+      array = {
+          to: req.body.to
+      }
+      mail = {
+          from: "Creaciones apicolas aleo",
+          to: array.to,
+          subject: 'Informacion a cliente',
+          html: `
+          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
+              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo apicolas">
+                  </div>
+              </div>
+              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;paddin-left:2px;">
+                  <center>
+                      <div style="width:100%;text-align: center;">
+                          <h1 style="text-align: center;color:#181d81;">En hora buena(a) </h1>
+                          <hr style="border-top: 1.5px solid #f0f1f3;">
+                          <p style="text-align:center;margin-top:10px;font-size:16px;"> <strong>Hola</p>
+                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 90%;margin:auto;">
+                              <strong> 
+                                  Tu cotizacion fue enviada pronto actualizaremos su estado.
+                              </strong>
+                          </p>
+                      <div>
+                  </center>
+              </div>
+              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;padding:10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:10px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
+                  <center>
+                  <div style="width:100%;">
+                      <center>
+                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
+                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
+                      </a>
+                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
+                      </a>
+                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
+                      </a>
+                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
+                      </a>
+                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
+                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
+                      </a>
+                      </center>
+                  </div>
+                  </center>
+              </div>
+          </div>
+          `
+      }
+      mailTwo = {
+          from: "Creaciones apicolas aleo",
+          to: 'creacionesapicolasaleo@gmail.com',
+          subject: 'Nueva suscripción de cliente',
+          html: `
+          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
+              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo syswa">
+                  </div>
+              </div>
+              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;">
+                  <center>
+                      <div style="width:90%;text-align: center;">
+                          <h1 style="text-align: center;color:#181d81;">Actualización de clientes</h1>
+                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 80%;margin:auto;">
+                          <strong> Un cliente con correo ${array.to} ha hecho una cotizacion</strong>
+                          </p>
+                      <div>
+                  </center>
+              </div>
+          </div>
+          `
+      }
+  
+  try{
+      const send = await Mails.sendMail(mail)
+      try {
+          const sendTwo = await Mails.sendMail(mailTwo)
+          res.json({status: 'ok'})
+      }catch(err) {
+          res.send(err)
+      }
+  }catch(err){
+      res.send(err)
+  }
+})
+
+mails.post('/rescuePass/', async (req, res, next) => { 
+  const database = req.headers['x-database-connect'];
+  const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+  })
+  const Client = conn.model('clients', clientSchema)
+  try {
+      const findClient = await Client.findOne({
+          mail:req.body.mail
+      })
+      
+      if (!findClient) {
+          res.json({status: 'No existe'})   
+      }else{
+              try {
+                  const date = new Date()
+                  const code = date.getTime()+'?'+Math.floor(Math.random() * (9999 - 1000)) + 1000
+                  const updateClient = await Client.findOneAndUpdate({mail:req.body.mail}, {
+                      $set: {
+                        codigoRescue:code,
+                      }
+                  })
+                  if (updateClient) {
+                      const mail = {
+                          from: "creacionesapicolasaleo.com",
+                          to: req.body.mail,
+                          subject: 'Recuperación de contraseña',
+                          html: `
+                          <div style="width: 100%; padding:0;text-align:center;">
+                              <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo kkprettynails">
+                                  </div>
+                              </div>
+                              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
+                                  <center>
+                                      <div style="width:100%;text-align: center;">
+                                          <h1 style="text-align: center;color:#172b4d;">Bienvenid@ </h1>
+                                          <p style="text-align:center;margin-top:10px;font-size:13px;"> <strong>Estimado(a) ${updateClient.nombre}.</p>
+                                          <p style="text-align:left;font-size:13px;font-weight: 300;text-align: center;width: 60%;margin:auto;"><strong> 
+                                          Puedes recuperar tu contraseña por medio de este <a style="cursor: pointer;" href="https://kkprettynails.cl/#/servicios?code=${code}" class="text-center accLog">ENLACE</a> o por medio del siguiente boton: </strong>
+                                          </p>
+
+                                          <a style="display: inline-block;
+                                          font-weight: 400;
+                                          background: #605B56 !important;
+                                          text-decoration: none;
+                                          color: white;
+                                          text-align: center;
+                                          vertical-align: middle;
+                                          -webkit-user-select: none;
+                                          -moz-user-select: none;
+                                          -ms-user-select: none;
+                                          user-select: none;
+                                          margin-top: 5%;
+                                          border: 1px solid transparent;
+                                          padding: 0.375rem 0.75rem;
+                                          font-size: 1rem;
+                                          line-height: 1.5;
+                                          border-radius: 0.25rem;
+                                          -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                                          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                                          -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                                          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                                          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;" href="http://creacionesapicolasaleo.com/#/ingreso?code=${code}" class="text-center ">Cambiar contraseña</a> <br><br><br>
+
+                                          <p style="text-align:left;font-size:13px;font-weight: 300;text-align: center;width: 60%;margin:auto;"><strong> <br>
+                                          Este link solo podrá ser utilizado una sola vez. Si usted no realizó esta acción, ignore este correo. <br><br> Cualquier consulta, no dudes en escribirnos, estaremos encantadas de atenderte. </strong>
+                                          </p>
+                                      <div>
+                                  </center>
+                              </div>
+                              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:8px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
+                                  <center>
+                                  <div style="width:100%;">
+                                      <center>
+                                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
+                                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
+                                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
+                                      </a>
+                                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
+                                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
+                                      </a>
+                                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
+                                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
+                                      </a>
+                                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
+                                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
+                                      </a>
+                                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
+                                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
+                                      </a>
+                                      </center>
+                                  </div>
+                                  </center>
+                              </div>
+                          </div>
+                          `
+                      }
+                      try{
+                          const send = await Mails.sendMail(mail)
+                          res.json({status:'ok'})
+                      }
+                      catch(err){
+                          console.log(err)
+                      }
+                      
+                  }
+              }catch(err) {
+                  res.send('error: ' + err)
+              }
+      }
+  } catch(err) {
+      res.send('error: ' + err)
+  }
+  
 })
 
 module.exports = mails
