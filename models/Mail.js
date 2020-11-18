@@ -19,12 +19,18 @@ const mailSchema = new Schema ({
     twitter: {
         type: String
     },
+    location: {
+        type: String
+    },
     whatsapp: {
         type: String
     },
     img: {
         type: Array,
         required:true
+    },
+    companyName: {
+        type: String
     }
 })
 

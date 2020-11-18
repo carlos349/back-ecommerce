@@ -1375,292 +1375,1851 @@ mails.put('/:id', protectRoute, (req, res) => {
     })
 })
 
-mails.post('/contacMail', async (req, res) => {
-  const mail = {
-      from: "creacionesapicolasaleo.com",
-      to: req.body.email,
-      subject: 'Información a cliente',
-      html: `
-          <div style="width: 100%; padding:0;text-align:center;">
-              <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo creacionesapicolasaleo">
-                  </div>
-              </div>
-              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
-                  <center>
-                      <div style="width:60%;text-align: center;">
-                          <h1 style="text-align: center;color:#172b4d;">Bienvenid@ </h1>
-                          <p style="text-align:left;margin-top:10px;font-size:16px;"> <strong>Hola ${req.body.name}.</p>
-                          <p style="text-align:left;font-weight: 300;margin:auto;font-size:13px;"><strong> 
-                              Hemos recibido tu solicitud de contacto, a la brevedad nos comunicaremos para responder tus dudas o
-                              consultas.</strong><br><br>
-                              <span style="text-align:center">Detalle del mensaje: ${req.body.message}</span>
-                          </p>
-                      <div>
-                  </center>
-              </div>
-              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:8px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
-                      <center>
-                  <div style="width:100%;">
-                      <center>
-                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
-                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
-                      </a>
-                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
-                      </a>
-                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
-                      </a>
-                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
-                      </a>
-                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
-                      </a>
-                      </center>
-                  </div>
-                  </center>
-              </div>
-          </div>
-      `
-  }
-  const mailTwo = {
-      from: "creacionesapicolasaleo.com",
-      to: 'creacionesapicolasaleo@gmail.com',
-      subject: req.body.subject,
-      html: `
-          <div style="width: 100%; padding:0;text-align:center;">
-              <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo apicolasaleo">
-                  </div>
-              </div>
-              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
-                  <center>
-                      <div style="width:60%;text-align: center;">
-                          
-                          <p style="text-align:center;margin-top:10px;font-size:30px;"> Solicitud de contacto</p>
-                          <p style="text-align:center;font-weight: 300;margin:auto;font-size:13px;">
-                          <strong> 
-                          nombre: ${req.body.name} <br>
-                          correo: ${req.body.email} <br>
-                          </strong> <br><br>
-                          Mensaje: ${req.body.message}
-                          </p>
-                      <div>
-                  </center>
-              </div>
-          </div>
-      `
-  }
-  try{
-      const send = await Mails.sendMail(mail)
-      try {
-          const sendtwo = await Mails.sendMail(mailTwo)
-          res.json({status: 'ok'})
-      }
-      catch(err){
-          res.send(err)
-      }
-  }catch(err){
-      
-  }
-  
+mails.post('/contacMail', (req, res) => {
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Mail = conn.model('mails', mailSchema)
+    Mail.find()
+    .then(mailData =>{
+        if (mailData.length > 0) {
+            const mail = {
+                from: mailData[0].companyName,
+                to: req.body.email,
+                subject: mailData[0].companyName + ' - '+ 'Información a cliente',
+                html: `
+                <!doctype html>
+                <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                    <title>
+                    
+                    </title>
+                    <!--[if !mso]><!-- -->
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <!--<![endif]-->
+                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style type="text/css">
+                    #outlook a { padding:0; }
+                    .ReadMsgBody { width:100%; }
+                    .ExternalClass { width:100%; }
+                    .ExternalClass * { line-height:100%; }
+                    body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+                    table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+                    img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+                    p { display:block;margin:13px 0; }
+                    </style>
+                    <!--[if !mso]><!-->
+                    <style type="text/css">
+                    @media only screen and (max-width:480px) {
+                        @-ms-viewport { width:320px; }
+                        @viewport { width:320px; }
+                    }
+                    </style>
+                    <!--<![endif]-->
+                    <!--[if mso]>
+                    <xml>
+                    <o:OfficeDocumentSettings>
+                    <o:AllowPNG/>
+                    <o:PixelsPerInch>96</o:PixelsPerInch>
+                    </o:OfficeDocumentSettings>
+                    </xml>
+                    <![endif]-->
+                    <!--[if lte mso 11]>
+                    <style type="text/css">
+                    .outlook-group-fix { width:100% !important; }
+                    </style>
+                    <![endif]-->
+                    
+                <!--[if !mso]><!-->
+                    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet" type="text/css">
+                    <style type="text/css">
+                    @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+            @import url(https://fonts.googleapis.com/css?family=Cabin:400,700);
+                    </style>
+                <!--<![endif]-->
+
+                
+                    
+                <style type="text/css">
+                @media only screen and (min-width:480px) {
+                    .mj-column-per-100 { width:100% !important; max-width: 100%; }
+                }
+                </style>
+                
+            
+                    <style type="text/css">
+                    
+                    
+
+                @media only screen and (max-width:480px) {
+                table.full-width-mobile { width: 100% !important; }
+                td.full-width-mobile { width: auto !important; }
+                }
+            
+                    </style>
+                    <style type="text/css">.hide_on_mobile { display: none !important;} 
+                    @media only screen and (min-width: 480px) { .hide_on_mobile { display: block !important;} }
+                    .hide_section_on_mobile { display: none !important;} 
+                    @media only screen and (min-width: 480px) { .hide_section_on_mobile { display: table !important;} }
+                    .hide_on_desktop { display: block !important;} 
+                    @media only screen and (min-width: 480px) { .hide_on_desktop { display: none !important;} }
+                    .hide_section_on_desktop { display: table !important;} 
+                    @media only screen and (min-width: 480px) { .hide_section_on_desktop { display: none !important;} }
+                    [owa] .mj-column-per-100 {
+                        width: 100%!important;
+                    }
+                    [owa] .mj-column-per-50 {
+                        width: 50%!important;
+                    }
+                    [owa] .mj-column-per-33 {
+                        width: 33.333333333333336%!important;
+                    }
+                    p {
+                        margin: 0px;
+                    }
+                    @media only print and (min-width:480px) {
+                        .mj-column-per-100 { width:100%!important; }
+                        .mj-column-per-40 { width:40%!important; }
+                        .mj-column-per-60 { width:60%!important; }
+                        .mj-column-per-50 { width: 50%!important; }
+                        mj-column-per-33 { width: 33.333333333333336%!important; }
+                        }</style>
+                    
+                </head>
+                <body style="background-color:#FFFFFF;">
+                    
+                    
+                <div style="background-color:#FFFFFF;">
+                    
+                <table align="center" class="hide_section_on_mobile" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                    <tbody>
+                    <tr>
+                        <td>
+                        
+                    
+                <!--[if mso | IE]>
+                <table
+                    align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_mobile-outlook" style="width:600px;" width="600"
+                >
+                    <tr>
+                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+                
+                    
+                <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                
+                        <td
+                        class="" style="vertical-align:top;width:600px;"
+                        >
+                    <![endif]-->
+                        
+                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                        <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                            
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                    <tbody>
+                    <tr>
+                        <td style="width:180px;">
+                        
+                <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="180">
+                
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                        </td>
+                        </tr>
+                    
+                </table>
+                
+                </div>
+                
+                    <!--[if mso | IE]>
+                        </td>
+                    
+                    </tr>
+                
+                            </table>
+                            <![endif]-->
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    
+                </div>
+                
+                    
+                <!--[if mso | IE]>
+                    </td>
+                    </tr>
+                </table>
+                <![endif]-->
+                
+                
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                <table align="center" class="hide_section_on_desktop" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                    <tbody>
+                    <tr>
+                        <td>
+                        
+                    
+                <!--[if mso | IE]>
+                <table
+                    align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_desktop-outlook" style="width:600px;" width="600"
+                >
+                    <tr>
+                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+                
+                    
+                <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                
+                        <td
+                        class="" style="vertical-align:top;width:600px;"
+                        >
+                    <![endif]-->
+                        
+                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                        <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                            
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                    <tbody>
+                    <tr>
+                        <td style="width:114px;">
+                        
+                <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="114">
+                
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                        </td>
+                        </tr>
+                    
+                </table>
+                
+                </div>
+                
+                    <!--[if mso | IE]>
+                        </td>
+                    
+                    </tr>
+                
+                            </table>
+                            <![endif]-->
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    
+                </div>
+                
+                    
+                <!--[if mso | IE]>
+                    </td>
+                    </tr>
+                </table>
+                <![endif]-->
+                
+                
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                    <tr>
+                        <td>
+                        
+                    
+                <!--[if mso | IE]>
+                <table
+                    align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                >
+                    <tr>
+                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+                
+                    
+                <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                
+                        <td
+                        class="" style="vertical-align:top;width:600px;"
+                        >
+                    <![endif]-->
+                        
+                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                        <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
+                            
+                <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
+                    <h1 style="font-family: 'Cabin', sans-serif; text-align: center;">&iexcl;Hola! ${req.body.name}</h1>
+            <h3 style="text-align: center;color:black">Hemos recibido tu solicitud de contacto, a la brevedad nos comunicaremos para responder tus dudas o consultas.</h3>
+            <p style="text-align: center;">Detalle del mensaje: ${req.body.message}</p>
+                </div>
+                
+                        </td>
+                        </tr>
+                    
+                </table>
+                
+                </div>
+                
+                    <!--[if mso | IE]>
+                        </td>
+                    
+                    </tr>
+                
+                            </table>
+                            <![endif]-->
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    
+                </div>
+                
+                    
+                <!--[if mso | IE]>
+                    </td>
+                    </tr>
+                </table>
+                <![endif]-->
+                
+                
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                    <tr>
+                        <td>
+                        
+                    
+                <!--[if mso | IE]>
+                <table
+                    align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                >
+                    <tr>
+                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+                
+                    
+                <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                
+                        <td
+                        class="" style="vertical-align:top;width:600px;"
+                        >
+                    <![endif]-->
+                        
+                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                        <td align="center" style="font-size:0px;padding:10px 10px 10px 10px;word-break:break-word;">
+                            
+                
+                <!--[if mso | IE]>
+                <table
+                    align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                >
+                    <tr>
+                
+                        <td>
+                        <![endif]-->
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                <tr>
+                    <td style="padding:4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].facebook}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664348.jpg" style="border-radius:3px;display:block;" width="32">
+                            </a>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                    
+                </tr>
+                
+                        </table>
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                        <td>
+                        <![endif]-->
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                <tr>
+                    <td style="padding:4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].instagram}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664357.jpg" style="border-radius:3px;display:block;" width="32">
+                            </a>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                    
+                </tr>
+                
+                        </table>
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                        <td>
+                        <![endif]-->
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                <tr>
+                    <td style="padding:4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].location}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664364.jpg" style="border-radius:3px;display:block;" width="32">
+                            </a>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                    
+                </tr>
+                
+                        </table>
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                        <td>
+                        <![endif]-->
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                <tr>
+                    <td style="padding:4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].whatsapp}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664370.jpg" style="border-radius:3px;display:block;" width="32">
+                            </a>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                    
+                </tr>
+                
+                        </table>
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                        <td>
+                        <![endif]-->
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                <tr>
+                    <td style="padding:4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="mailto:${mailData[0].mail}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664419.jpg" style="border-radius:3px;display:block;" width="32">
+                            </a>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                    
+                </tr>
+                
+                        </table>
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                    </tr>
+                    </table>
+                <![endif]-->
+                
+                
+                        </td>
+                        </tr>
+                    
+                </table>
+                
+                </div>
+                
+                    <!--[if mso | IE]>
+                        </td>
+                    
+                    </tr>
+                
+                            </table>
+                            <![endif]-->
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    
+                </div>
+                
+                    
+                <!--[if mso | IE]>
+                    </td>
+                    </tr>
+                </table>
+                <![endif]-->
+                
+                
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                </div>
+                
+                </body>
+                </html>
+
+                `
+            }
+            const mailTwo = {
+                from: mailData[0].companyName,
+                to: mailData[0].mail,
+                subject: req.body.subject,
+                html: `
+                    <div style="width: 100%; padding:0;text-align:center;">
+                        <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                            <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                                <img style="width: 100%;margin-bot:20px;" src="${mailData[0].img[0].url}" alt="Logo apicolasaleo">
+                            </div>
+                        </div>
+                        <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
+                            <center>
+                                <div style="width:60%;text-align: center;">
+                                    
+                                    <p style="text-align:center;margin-top:10px;font-size:30px;"> Solicitud de contacto</p>
+                                    <p style="text-align:center;font-weight: 300;margin:auto;font-size:13px;">
+                                    <strong> 
+                                    nombre: ${req.body.name} <br>
+                                    correo: ${req.body.email} <br>
+                                    </strong> <br><br>
+                                    Mensaje: ${req.body.message}
+                                    </p>
+                                <div>
+                            </center>
+                        </div>
+                    </div>
+                `
+            }
+            Mails.sendMail(mail)
+            .then(send => {
+                Mails.sendMail(mailTwo)
+                .then(senTwo => {
+                    res.json({status: 'ok'})
+                }).catch(err => {
+                    res.send(err)
+                })
+            }).catch(err => {
+                res.send(err)
+            })
+        }
+    })
 })
 
 mails.post('/subs', async (req, res, next) => {
-  var array = {}
-  let mail = {}
-      array = {
-          to: req.body.to
-      }
-      mail = {
-          from: "Creaciones apicolas aleo",
-          to: array.to,
-          subject: 'Informacion a cliente',
-          html: `
-          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
-              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo apicolas">
-                  </div>
-              </div>
-              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;paddin-left:2px;">
-                  <center>
-                      <div style="width:100%;text-align: center;">
-                          <h1 style="text-align: center;color:#181d81;">Bienvenido(a) </h1>
-                          <hr style="border-top: 1.5px solid #f0f1f3;">
-                          <p style="text-align:center;margin-top:10px;font-size:16px;"> <strong>Hola</p>
-                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 90%;margin:auto;">
-                              <strong> 
-                                  Nos alegra que te hayas suscrito en nuestro sitio web, por este medio te enviaremos todas las novedades de nuestros servicios.
-                              </strong>
-                          </p>
-                      <div>
-                  </center>
-              </div>
-              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;padding:10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:10px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
-                  <center>
-                  <div style="width:100%;">
-                      <center>
-                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
-                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
-                      </a>
-                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
-                      </a>
-                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
-                      </a>
-                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
-                      </a>
-                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
-                      </a>
-                      </center>
-                  </div>
-                  </center>
-              </div>
-          </div>
-          `
-      }
-      mailTwo = {
-          from: "Creaciones apicolas aleo",
-          to: 'creacionesapicolasaleo@gmail.com',
-          subject: 'Nueva suscripción de cliente',
-          html: `
-          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
-              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo syswa">
-                  </div>
-              </div>
-              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;">
-                  <center>
-                      <div style="width:90%;text-align: center;">
-                          <h1 style="text-align: center;color:#181d81;">Actualización de clientes</h1>
-                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 80%;margin:auto;">
-                          <strong> Se ha suscrito un nuevo cliente con el correo ${array.to}</strong>
-                          </p>
-                      <div>
-                  </center>
-              </div>
-          </div>
-          `
-      }
-  
-  try{
-      const send = await Mails.sendMail(mail)
-      try {
-          const sendTwo = await Mails.sendMail(mailTwo)
-          res.json({status: 'ok'})
-      }catch(err) {
-          res.send(err)
-      }
-  }catch(err){
-      res.send(err)
-  }
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Mail = conn.model('mails', mailSchema)
+    Mail.find()
+    .then(mailData =>{
+        if (mailData.length > 0) {
+            var array = {}
+            let mail = {}
+            array = {
+                to: req.body.to
+            }
+            mail = {
+                from: mailData[0].companyName,
+                to: array.to,
+                subject: mailData[0].companyName+' '+'te da la bienvenida',
+                html: `
+                <!doctype html>
+            <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+            <head>
+                <title>
+                
+                </title>
+                <!--[if !mso]><!-- -->
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <!--<![endif]-->
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style type="text/css">
+                #outlook a { padding:0; }
+                .ReadMsgBody { width:100%; }
+                .ExternalClass { width:100%; }
+                .ExternalClass * { line-height:100%; }
+                body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+                table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+                img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+                p { display:block;margin:13px 0; }
+                </style>
+                <!--[if !mso]><!-->
+                <style type="text/css">
+                @media only screen and (max-width:480px) {
+                    @-ms-viewport { width:320px; }
+                    @viewport { width:320px; }
+                }
+                </style>
+                <!--<![endif]-->
+                <!--[if mso]>
+                <xml>
+                <o:OfficeDocumentSettings>
+                <o:AllowPNG/>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+                </o:OfficeDocumentSettings>
+                </xml>
+                <![endif]-->
+                <!--[if lte mso 11]>
+                <style type="text/css">
+                .outlook-group-fix { width:100% !important; }
+                </style>
+                <![endif]-->
+                
+            <!--[if !mso]><!-->
+                <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        @import url(https://fonts.googleapis.com/css?family=Cabin:400,700);
+                </style>
+            <!--<![endif]-->
+
+            
+                
+            <style type="text/css">
+            @media only screen and (min-width:480px) {
+                .mj-column-per-100 { width:100% !important; max-width: 100%; }
+            }
+            </style>
+            
+        
+                <style type="text/css">
+                
+                
+
+            @media only screen and (max-width:480px) {
+            table.full-width-mobile { width: 100% !important; }
+            td.full-width-mobile { width: auto !important; }
+            }
+        
+                </style>
+                <style type="text/css">.hide_on_mobile { display: none !important;} 
+                @media only screen and (min-width: 480px) { .hide_on_mobile { display: block !important;} }
+                .hide_section_on_mobile { display: none !important;} 
+                @media only screen and (min-width: 480px) { .hide_section_on_mobile { display: table !important;} }
+                .hide_on_desktop { display: block !important;} 
+                @media only screen and (min-width: 480px) { .hide_on_desktop { display: none !important;} }
+                .hide_section_on_desktop { display: table !important;} 
+                @media only screen and (min-width: 480px) { .hide_section_on_desktop { display: none !important;} }
+                [owa] .mj-column-per-100 {
+                    width: 100%!important;
+                }
+                [owa] .mj-column-per-50 {
+                    width: 50%!important;
+                }
+                [owa] .mj-column-per-33 {
+                    width: 33.333333333333336%!important;
+                }
+                p {
+                    margin: 0px;
+                }
+                @media only print and (min-width:480px) {
+                    .mj-column-per-100 { width:100%!important; }
+                    .mj-column-per-40 { width:40%!important; }
+                    .mj-column-per-60 { width:60%!important; }
+                    .mj-column-per-50 { width: 50%!important; }
+                    mj-column-per-33 { width: 33.333333333333336%!important; }
+                    }</style>
+                
+            </head>
+            <body style="background-color:#FFFFFF;">
+                
+                
+            <div style="background-color:#FFFFFF;">
+                
+            <table align="center" class="hide_section_on_mobile" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                <tbody>
+                <tr>
+                    <td>
+                    
+                
+            <!--[if mso | IE]>
+            <table
+                align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_mobile-outlook" style="width:600px;" width="600"
+            >
+                <tr>
+                <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+            <![endif]-->
+            
+                
+            <div style="Margin:0px auto;max-width:600px;">
+                
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                    <tr>
+                    <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                        <!--[if mso | IE]>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        
+                <tr>
+            
+                    <td
+                    class="" style="vertical-align:top;width:600px;"
+                    >
+                <![endif]-->
+                    
+            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                
+                    <tr>
+                    <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                        
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                <tbody>
+                <tr>
+                    <td style="width:180px;">
+                    
+            <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="180">
+            
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+                    </td>
+                    </tr>
+                
+            </table>
+            
+            </div>
+            
+                <!--[if mso | IE]>
+                    </td>
+                
+                </tr>
+            
+                        </table>
+                        <![endif]-->
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+                
+            </div>
+            
+                
+            <!--[if mso | IE]>
+                </td>
+                </tr>
+            </table>
+            <![endif]-->
+            
+            
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <table align="center" class="hide_section_on_desktop" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                <tbody>
+                <tr>
+                    <td>
+                    
+                
+            <!--[if mso | IE]>
+            <table
+                align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_desktop-outlook" style="width:600px;" width="600"
+            >
+                <tr>
+                <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+            <![endif]-->
+            
+                
+            <div style="Margin:0px auto;max-width:600px;">
+                
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                    <tr>
+                    <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                        <!--[if mso | IE]>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        
+                <tr>
+            
+                    <td
+                    class="" style="vertical-align:top;width:600px;"
+                    >
+                <![endif]-->
+                    
+            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                
+                    <tr>
+                    <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                        
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                <tbody>
+                <tr>
+                    <td style="width:114px;">
+                    
+            <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="114">
+            
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+                    </td>
+                    </tr>
+                
+            </table>
+            
+            </div>
+            
+                <!--[if mso | IE]>
+                    </td>
+                
+                </tr>
+            
+                        </table>
+                        <![endif]-->
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+                
+            </div>
+            
+                
+            <!--[if mso | IE]>
+                </td>
+                </tr>
+            </table>
+            <![endif]-->
+            
+            
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                <tr>
+                    <td>
+                    
+                
+            <!--[if mso | IE]>
+            <table
+                align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+            >
+                <tr>
+                <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+            <![endif]-->
+            
+                
+            <div style="Margin:0px auto;max-width:600px;">
+                
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                    <tr>
+                    <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                        <!--[if mso | IE]>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        
+                <tr>
+            
+                    <td
+                    class="" style="vertical-align:top;width:600px;"
+                    >
+                <![endif]-->
+                    
+            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                
+                    <tr>
+                    <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
+                        
+            <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
+                <h1 style="font-family: 'Cabin', sans-serif; text-align: center;">${mailData[0].companyName} te da la bienvenida</h1>
+        <h3 style="text-align: center;">&iexcl;Hola! </h3>
+        <h3 style="text-align: center;color:black">Nos alegra que te hayas suscrito en nuestro sitio web, por este medio te enviaremos todas las novedades de nuestros servicios.</h3>
+            </div>
+            
+                    </td>
+                    </tr>
+                
+            </table>
+            
+            </div>
+            
+                <!--[if mso | IE]>
+                    </td>
+                
+                </tr>
+            
+                        </table>
+                        <![endif]-->
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+                
+            </div>
+            
+                
+            <!--[if mso | IE]>
+                </td>
+                </tr>
+            </table>
+            <![endif]-->
+            
+            
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                <tr>
+                    <td>
+                    
+                
+            <!--[if mso | IE]>
+            <table
+                align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+            >
+                <tr>
+                <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+            <![endif]-->
+            
+                
+            <div style="Margin:0px auto;max-width:600px;">
+                
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                <tbody>
+                    <tr>
+                    <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                        <!--[if mso | IE]>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        
+                <tr>
+            
+                    <td
+                    class="" style="vertical-align:top;width:600px;"
+                    >
+                <![endif]-->
+                    
+            <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                
+            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                
+                    <tr>
+                    <td align="center" style="font-size:0px;padding:10px 10px 10px 10px;word-break:break-word;">
+                        
+            
+            <!--[if mso | IE]>
+            <table
+                align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+            >
+                <tr>
+            
+                    <td>
+                    <![endif]-->
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                        
+            <tr>
+                <td style="padding:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                    <tr>
+                    <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                        <a href="${mailData[0].facebook}" target="_blank">
+                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664348.jpg" style="border-radius:3px;display:block;" width="32">
+                        </a>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+                
+            </tr>
+            
+                    </table>
+                    <!--[if mso | IE]>
+                    </td>
+                    
+                    <td>
+                    <![endif]-->
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                        
+            <tr>
+                <td style="padding:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                    <tr>
+                    <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                        <a href="${mailData[0].instagram}" target="_blank">
+                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664357.jpg" style="border-radius:3px;display:block;" width="32">
+                        </a>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+                
+            </tr>
+            
+                    </table>
+                    <!--[if mso | IE]>
+                    </td>
+                    
+                    <td>
+                    <![endif]-->
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                        
+            <tr>
+                <td style="padding:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                    <tr>
+                    <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                        <a href="${mailData[0].location}" target="_blank">
+                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664364.jpg" style="border-radius:3px;display:block;" width="32">
+                        </a>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+                
+            </tr>
+            
+                    </table>
+                    <!--[if mso | IE]>
+                    </td>
+                    
+                    <td>
+                    <![endif]-->
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                        
+            <tr>
+                <td style="padding:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                    <tr>
+                    <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                        <a href="${mailData[0].whatsapp}" target="_blank">
+                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664370.jpg" style="border-radius:3px;display:block;" width="32">
+                        </a>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+                
+            </tr>
+            
+                    </table>
+                    <!--[if mso | IE]>
+                    </td>
+                    
+                    <td>
+                    <![endif]-->
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                        
+            <tr>
+                <td style="padding:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                    <tr>
+                    <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                        <a href="mailto:${mailData[0].mail}" target="_blank">
+                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664419.jpg" style="border-radius:3px;display:block;" width="32">
+                        </a>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+                
+            </tr>
+            
+                    </table>
+                    <!--[if mso | IE]>
+                    </td>
+                    
+                </tr>
+                </table>
+            <![endif]-->
+            
+            
+                    </td>
+                    </tr>
+                
+            </table>
+            
+            </div>
+            
+                <!--[if mso | IE]>
+                    </td>
+                
+                </tr>
+            
+                        </table>
+                        <![endif]-->
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+                
+            </div>
+            
+                
+            <!--[if mso | IE]>
+                </td>
+                </tr>
+            </table>
+            <![endif]-->
+            
+            
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            </div>
+            
+            </body>
+            </html>
+                `
+            }
+            mailTwo = {
+                from: mailData[0].companyName,
+                to: mailData[0].mail,
+                subject: 'Nueva suscripción de cliente',
+                html: `
+                <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
+                    <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                        <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                            <img style="width: 100%;margin-bot:20px;" src="${mailData[0].img[0].url}" alt="Logo syswa">
+                        </div>
+                    </div>
+                    <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;">
+                        <center>
+                            <div style="width:90%;text-align: center;">
+                                <h1 style="text-align: center;color:#181d81;">Actualización de clientes</h1>
+                                <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 80%;margin:auto;">
+                                <strong> Se ha suscrito un nuevo cliente con el correo ${array.to}</strong>
+                                </p>
+                            <div>
+                        </center>
+                    </div>
+                </div>
+                `
+            }
+            
+            Mails.sendMail(mail)
+            .then(send => {
+                Mails.sendMail(mailTwo)
+                .then(senTwo => {
+                    res.json({status: 'ok'})
+                }).catch(err => {
+                    res.send(err)
+                })
+            }).catch(err => {
+                res.send(err)
+            })
+        }
+    })
 })
 
 mails.post('/quotation', async (req, res, next) => {
-  var array = {}
-  let mail = {}
-      array = {
-          to: req.body.to
-      }
-      mail = {
-          from: "Creaciones apicolas aleo",
-          to: array.to,
-          subject: 'Informacion a cliente',
-          html: `
-          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
-              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo apicolas">
-                  </div>
-              </div>
-              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;paddin-left:2px;">
-                  <center>
-                      <div style="width:100%;text-align: center;">
-                          <h1 style="text-align: center;color:#181d81;">En hora buena(a) </h1>
-                          <hr style="border-top: 1.5px solid #f0f1f3;">
-                          <p style="text-align:center;margin-top:10px;font-size:16px;"> <strong>Hola</p>
-                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 90%;margin:auto;">
-                              <strong> 
-                                  Tu cotizacion fue enviada pronto actualizaremos su estado.
-                              </strong>
-                          </p>
-                      <div>
-                  </center>
-              </div>
-              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;padding:10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:10px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
-                  <center>
-                  <div style="width:100%;">
-                      <center>
-                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
-                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
-                      </a>
-                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
-                      </a>
-                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
-                      </a>
-                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
-                      </a>
-                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
-                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
-                      </a>
-                      </center>
-                  </div>
-                  </center>
-              </div>
-          </div>
-          `
-      }
-      mailTwo = {
-          from: "Creaciones apicolas aleo",
-          to: 'creacionesapicolasaleo@gmail.com',
-          subject: 'Nueva suscripción de cliente',
-          html: `
-          <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
-              <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo syswa">
-                  </div>
-              </div>
-              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;">
-                  <center>
-                      <div style="width:90%;text-align: center;">
-                          <h1 style="text-align: center;color:#181d81;">Actualización de clientes</h1>
-                          <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 80%;margin:auto;">
-                          <strong> Un cliente con correo ${array.to} ha hecho una cotizacion</strong>
-                          </p>
-                      <div>
-                  </center>
-              </div>
-          </div>
-          `
-      }
+    const database = req.headers['x-database-connect'];
+    const conn = mongoose.createConnection('mongodb://localhost/'+database, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    const Mail = conn.model('mails', mailSchema)
+    Mail.find()
+    .then(mailData =>{
+        if (mailData.length > 0) {
+            var array = {}
+            let mail = {}
+            array = {
+                to: req.body.to
+            }
+            mail = {
+                from: mailData[0].companyName,
+                to: array.to,
+                subject: mailData[0].companyName + ' - '+'Solicitud de cotización',
+                html: `<!doctype html>
+                <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                    <head>
+                    <title>
+                        
+                    </title>
+                    <!--[if !mso]><!-- -->
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <!--<![endif]-->
+                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style type="text/css">
+                        #outlook a { padding:0; }
+                        .ReadMsgBody { width:100%; }
+                        .ExternalClass { width:100%; }
+                        .ExternalClass * { line-height:100%; }
+                        body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+                        table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+                        img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+                        p { display:block;margin:13px 0; }
+                    </style>
+                    <!--[if !mso]><!-->
+                    <style type="text/css">
+                        @media only screen and (max-width:480px) {
+                        @-ms-viewport { width:320px; }
+                        @viewport { width:320px; }
+                        }
+                    </style>
+                    <!--<![endif]-->
+                    <!--[if mso]>
+                    <xml>
+                    <o:OfficeDocumentSettings>
+                        <o:AllowPNG/>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                    </o:OfficeDocumentSettings>
+                    </xml>
+                    <![endif]-->
+                    <!--[if lte mso 11]>
+                    <style type="text/css">
+                        .outlook-group-fix { width:100% !important; }
+                    </style>
+                    <![endif]-->
+                    
+                    <!--[if !mso]><!-->
+                    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet" type="text/css">
+                    <style type="text/css">
+                        @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+            @import url(https://fonts.googleapis.com/css?family=Cabin:400,700);
+                    </style>
+                    <!--<![endif]-->
+            
+                
+                    
+                <style type="text/css">
+                    @media only screen and (min-width:480px) {
+                    .mj-column-per-100 { width:100% !important; max-width: 100%; }
+                    }
+                </style>
+                
+                
+                    <style type="text/css">
+                    
+                    
+            
+                @media only screen and (max-width:480px) {
+                    table.full-width-mobile { width: 100% !important; }
+                    td.full-width-mobile { width: auto !important; }
+                }
+                
+                    </style>
+                    <style type="text/css">.hide_on_mobile { display: none !important;} 
+                    @media only screen and (min-width: 480px) { .hide_on_mobile { display: block !important;} }
+                    .hide_section_on_mobile { display: none !important;} 
+                    @media only screen and (min-width: 480px) { .hide_section_on_mobile { display: table !important;} }
+                    .hide_on_desktop { display: block !important;} 
+                    @media only screen and (min-width: 480px) { .hide_on_desktop { display: none !important;} }
+                    .hide_section_on_desktop { display: table !important;} 
+                    @media only screen and (min-width: 480px) { .hide_section_on_desktop { display: none !important;} }
+                    [owa] .mj-column-per-100 {
+                        width: 100%!important;
+                        }
+                        [owa] .mj-column-per-50 {
+                        width: 50%!important;
+                        }
+                        [owa] .mj-column-per-33 {
+                        width: 33.333333333333336%!important;
+                        }
+                        p {
+                            margin: 0px;
+                        }
+                        @media only print and (min-width:480px) {
+                        .mj-column-per-100 { width:100%!important; }
+                        .mj-column-per-40 { width:40%!important; }
+                        .mj-column-per-60 { width:60%!important; }
+                        .mj-column-per-50 { width: 50%!important; }
+                        mj-column-per-33 { width: 33.333333333333336%!important; }
+                        }</style>
+                    
+                    </head>
+                    <body style="background-color:#FFFFFF;">
+                    
+                    
+                    <div style="background-color:#FFFFFF;">
+                    
+                    <table align="center" class="hide_section_on_mobile" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                    <tbody>
+                        <tr>
+                        <td>
+                            
+                    
+                    <!--[if mso | IE]>
+                    <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_mobile-outlook" style="width:600px;" width="600"
+                    >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                    <![endif]-->
+                
+                    
+                    <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                        <tbody>
+                        <tr>
+                            <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                    
+                        <td
+                            class="" style="vertical-align:top;width:600px;"
+                        >
+                        <![endif]-->
+                        
+                    <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                            <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                            
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                    <tbody>
+                        <tr>
+                        <td style="width:180px;">
+                            
+                    <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="180">
+                
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                
+                    </div>
+                
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                    </tr>
+                    
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                    </div>
+                
+                    
+                    <!--[if mso | IE]>
+                        </td>
+                    </tr>
+                    </table>
+                    <![endif]-->
+                
+                    
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
+                    <table align="center" class="hide_section_on_desktop" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                    <tbody>
+                        <tr>
+                        <td>
+                            
+                    
+                    <!--[if mso | IE]>
+                    <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_desktop-outlook" style="width:600px;" width="600"
+                    >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                    <![endif]-->
+                
+                    
+                    <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                        <tbody>
+                        <tr>
+                            <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                    
+                        <td
+                            class="" style="vertical-align:top;width:600px;"
+                        >
+                        <![endif]-->
+                        
+                    <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                            <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                            
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                    <tbody>
+                        <tr>
+                        <td style="width:114px;">
+                            
+                    <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="114">
+                
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                
+                    </div>
+                
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                    </tr>
+                    
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                    </div>
+                
+                    
+                    <!--[if mso | IE]>
+                        </td>
+                    </tr>
+                    </table>
+                    <![endif]-->
+                
+                    
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td>
+                            
+                    
+                    <!--[if mso | IE]>
+                    <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                    >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                    <![endif]-->
+                
+                    
+                    <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                        <tbody>
+                        <tr>
+                            <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                    
+                        <td
+                            class="" style="vertical-align:top;width:600px;"
+                        >
+                        <![endif]-->
+                        
+                    <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                            <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
+                            
+                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
+                    <h1 style="font-family: 'Cabin', sans-serif; text-align: center;">&iexcl;Enhorabuena! </h1>
+            <h3 style="text-align: center;color:black">Hemos recibido tu solicitud de pedido, por lo que a la brevedad nos pondremos en contacto para indicarte los detalles de entrega en las pr&oacute;ximas 24 horas.</h3>
+            <p style="text-align: center;">Para mayor informaci&oacute;n o dudas por favor comun&iacute;cate con nosotros a nuestros n&uacute;meros de contacto.</p>
+                    </div>
+                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                
+                    </div>
+                
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                    </tr>
+                    
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                    </div>
+                
+                    
+                    <!--[if mso | IE]>
+                        </td>
+                    </tr>
+                    </table>
+                    <![endif]-->
+                
+                    
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                    <tbody>
+                        <tr>
+                        <td>
+                            
+                    
+                    <!--[if mso | IE]>
+                    <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                    >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                    <![endif]-->
+                
+                    
+                    <div style="Margin:0px auto;max-width:600px;">
+                    
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                        <tbody>
+                        <tr>
+                            <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                            <!--[if mso | IE]>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                            
+                    <tr>
+                    
+                        <td
+                            class="" style="vertical-align:top;width:600px;"
+                        >
+                        <![endif]-->
+                        
+                    <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                    
+                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                    
+                        <tr>
+                            <td align="center" style="font-size:0px;padding:10px 10px 10px 10px;word-break:break-word;">
+                            
+                    
+                    <!--[if mso | IE]>
+                    <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                    >
+                    <tr>
+                    
+                            <td>
+                        <![endif]-->
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                    <tr>
+                    <td style="padding:4px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                            <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].facebook}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664348.jpg" style="border-radius:3px;display:block;" width="32">
+                                </a>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    </tr>
+                
+                            </table>
+                        <!--[if mso | IE]>
+                            </td>
+                        
+                            <td>
+                        <![endif]-->
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                    <tr>
+                    <td style="padding:4px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                            <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].instagram}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664357.jpg" style="border-radius:3px;display:block;" width="32">
+                                </a>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    </tr>
+                
+                            </table>
+                        <!--[if mso | IE]>
+                            </td>
+                        
+                            <td>
+                        <![endif]-->
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                    <tr>
+                    <td style="padding:4px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                            <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].location}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664364.jpg" style="border-radius:3px;display:block;" width="32">
+                                </a>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    </tr>
+                
+                            </table>
+                        <!--[if mso | IE]>
+                            </td>
+                        
+                            <td>
+                        <![endif]-->
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                    <tr>
+                    <td style="padding:4px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                            <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="${mailData[0].whatsapp}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664370.jpg" style="border-radius:3px;display:block;" width="32">
+                                </a>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    </tr>
+                
+                            </table>
+                        <!--[if mso | IE]>
+                            </td>
+                        
+                            <td>
+                        <![endif]-->
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                            
+                    <tr>
+                    <td style="padding:4px;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                        <tr>
+                            <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                            <a href="mailto:${mailData[0].mail}" target="_blank">
+                                <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664419.jpg" style="border-radius:3px;display:block;" width="32">
+                                </a>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    </tr>
+                
+                            </table>
+                        <!--[if mso | IE]>
+                            </td>
+                        
+                        </tr>
+                    </table>
+                    <![endif]-->
+                
+                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                
+                    </div>
+                
+                        <!--[if mso | IE]>
+                        </td>
+                        
+                    </tr>
+                    
+                                </table>
+                            <![endif]-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                    </div>
+                
+                    
+                    <!--[if mso | IE]>
+                        </td>
+                    </tr>
+                    </table>
+                    <![endif]-->
+                
+                    
+                        </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
+                    </div>
+                
+                    </body>
+                </html>`
+            }
+            mailTwo = {
+                from: mailData[0].companyName,
+                to: mailData[0].mail,
+                subject: 'Nueva suscripción de cliente',
+                html: `
+                <div style="width: 80%;max-width:1000px;margin:auto;padding:0;text-align:center;">
+                    <div style="width: 100%;height: 10vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 10px;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
+                        <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
+                            <img style="width: 100%;margin-bot:20px;" src="${mailData[0].img[0].url}" alt="Logo syswa">
+                        </div>
+                    </div>
+                    <div style="width: 100%;margin: auto;padding-top: 5%;font-family: 'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom: 20px;">
+                        <center>
+                            <div style="width:90%;text-align: center;">
+                                <h1 style="text-align: center;color:#181d81;">Actualización de clientes</h1>
+                                <p style="text-align:left;font-size:14px;font-weight: 300;text-align: center;width: 80%;margin:auto;">
+                                <strong> Un cliente con correo ${array.to} ha hecho una cotizacion</strong>
+                                </p>
+                            <div>
+                        </center>
+                    </div>
+                </div>
+                `
+            }
+            
+            Mails.sendMail(mail)
+            .then(send => {
+                Mails.sendMail(mailTwo)
+                .then(senTwo => {
+                    res.json({status: 'ok'})
+                }).catch(err => {
+                    res.send(err)
+                })
+            }).catch(err => {
+                res.send(err)
+            })
+        }
+    })
   
-  try{
-      const send = await Mails.sendMail(mail)
-      try {
-          const sendTwo = await Mails.sendMail(mailTwo)
-          res.json({status: 'ok'})
-      }catch(err) {
-          res.send(err)
-      }
-  }catch(err){
-      res.send(err)
-  }
 })
 
 mails.post('/rescuePass/', async (req, res, next) => { 
@@ -1678,103 +3237,677 @@ mails.post('/rescuePass/', async (req, res, next) => {
       if (!findClient) {
           res.json({status: 'No existe'})   
       }else{
-              try {
-                  const date = new Date()
-                  const code = date.getTime()+'?'+Math.floor(Math.random() * (9999 - 1000)) + 1000
-                  const updateClient = await Client.findOneAndUpdate({mail:req.body.mail}, {
-                      $set: {
-                        codigoRescue:code,
-                      }
-                  })
-                  if (updateClient) {
-                      const mail = {
-                          from: "creacionesapicolasaleo.com",
-                          to: req.body.mail,
-                          subject: 'Recuperación de contraseña',
-                          html: `
-                          <div style="width: 100%; padding:0;text-align:center;">
-                              <div style="width: 60%;height: 8vh;margin: auto;background-color: #ffcb05;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);padding: 20px;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;text-align:justify;-webkit-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);-moz-box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);box-shadow: 0px 6px 8px -8px rgba(0,0,0,0.73);">
-                                  <div style="width: 100px;margin:auto;border-radius:55%;background-color:#42210b;padding: 10px;">     
-                                      <img style="width: 100%;margin-bot:20px;" src="http://creacionesapicolasaleo.com/img/logo.png" alt="Logo kkprettynails">
-                                  </div>
-                              </div>
-                              <div style="width: 100%;margin: auto;padding-top: 5%;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#172b4d;padding-bottom: 40px;">
-                                  <center>
-                                      <div style="width:100%;text-align: center;">
-                                          <h1 style="text-align: center;color:#172b4d;">Bienvenid@ </h1>
-                                          <p style="text-align:center;margin-top:10px;font-size:13px;"> <strong>Estimado(a) ${updateClient.nombre}.</p>
-                                          <p style="text-align:left;font-size:13px;font-weight: 300;text-align: center;width: 60%;margin:auto;"><strong> 
-                                          Puedes recuperar tu contraseña por medio de este <a style="cursor: pointer;" href="https://kkprettynails.cl/#/servicios?code=${code}" class="text-center accLog">ENLACE</a> o por medio del siguiente boton: </strong>
-                                          </p>
-
-                                          <a style="display: inline-block;
-                                          font-weight: 400;
-                                          background: #605B56 !important;
-                                          text-decoration: none;
-                                          color: white;
-                                          text-align: center;
-                                          vertical-align: middle;
-                                          -webkit-user-select: none;
-                                          -moz-user-select: none;
-                                          -ms-user-select: none;
-                                          user-select: none;
-                                          margin-top: 5%;
-                                          border: 1px solid transparent;
-                                          padding: 0.375rem 0.75rem;
-                                          font-size: 1rem;
-                                          line-height: 1.5;
-                                          border-radius: 0.25rem;
-                                          -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-                                          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-                                          -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-                                          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-                                          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;" href="http://creacionesapicolasaleo.com/#/ingreso?code=${code}" class="text-center ">Cambiar contraseña</a> <br><br><br>
-
-                                          <p style="text-align:left;font-size:13px;font-weight: 300;text-align: center;width: 60%;margin:auto;"><strong> <br>
-                                          Este link solo podrá ser utilizado una sola vez. Si usted no realizó esta acción, ignore este correo. <br><br> Cualquier consulta, no dudes en escribirnos, estaremos encantadas de atenderte. </strong>
-                                          </p>
-                                      <div>
-                                  </center>
-                              </div>
-                              <div style="width: 100%;background-color: #f0f1f3;box-shadow: 0 2px 5px 0 rgba(0,0,0,.14);margin: auto;font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:#181d81;padding-bottom:8px;-webkit-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);-moz-box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);box-shadow: 0px -4px 11px 0px rgba(0,0,0,0.12);">
-                                  <center>
-                                  <div style="width:100%;">
-                                      <center>
-                                      <p style="text-align:center;font-size:14px;"><strong> Contáctanos</strong></p>
-                                      <a  href="mailto:creacionesapicolasaleo@gmail.com" style="margin-left:20px;text-decoration:none;"> 
-                                          <img style="width:4%;" src="https://kkprettynails.cl/img/maill.png" alt="Logo mail">
-                                      </a>
-                                      <a  href="https://www.instagram.com/creaciones_apicolas_aleo/" style="margin-left:20px;text-decoration:none;">
-                                          <img style="width:4.4%;" src="https://kkprettynails.cl/img/ig.png" alt="Logo ig">
-                                      </a>
-                                      <a  href="https://wa.me/573174635202" style="margin-left:20px;text-decoration:none;">
-                                          <img style="width:4%;" src="https://kkprettynails.cl/img/ws.png" alt="Logo ws">
-                                      </a>
-                                      <a  href="http://creacionesapicolasaleo.com/" style="margin-left:20px;text-decoration:none;">
-                                          <img style="width:4%;" src="https://kkprettynails.cl/img/web.png" alt="Logo web">
-                                      </a>
-                                      <a  href="https://goo.gl/maps/GtgHyBE5iEYQsXnJA" style="margin-left:20px;text-decoration:none;">
-                                          <img style="width:4%;" src="https://kkprettynails.cl/img/market.png" alt="Logo web">
-                                      </a>
-                                      </center>
-                                  </div>
-                                  </center>
-                              </div>
-                          </div>
-                          `
-                      }
-                      try{
-                          const send = await Mails.sendMail(mail)
-                          res.json({status:'ok'})
-                      }
-                      catch(err){
-                          console.log(err)
-                      }
-                      
-                  }
-              }catch(err) {
-                  res.send('error: ' + err)
-              }
+        const Mail = conn.model('mails', mailSchema)
+        try {
+            const mailData = await Mail.find()
+            if (mailData.length > 0) {
+                try {
+                    const date = new Date()
+                    const code = date.getTime()+'?'+Math.floor(Math.random() * (9999 - 1000)) + 1000
+                    const updateClient = await Client.findOneAndUpdate({mail:req.body.mail}, {
+                        $set: {
+                            codigoRescue:code,
+                        }
+                    })
+                    if (updateClient) {
+                        const mail = {
+                            from: mailData[0].companyName,
+                            to: req.body.mail,
+                            subject: mailData[0].companyName+' - '+'Recuperación de contraseña',
+                            html: `
+                            <!doctype html>
+                            <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+                                <head>
+                                <title>
+                                    
+                                </title>
+                                <!--[if !mso]><!-- -->
+                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                <!--<![endif]-->
+                                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                <style type="text/css">
+                                    #outlook a { padding:0; }
+                                    .ReadMsgBody { width:100%; }
+                                    .ExternalClass { width:100%; }
+                                    .ExternalClass * { line-height:100%; }
+                                    body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+                                    table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+                                    img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+                                    p { display:block;margin:13px 0; }
+                                </style>
+                                <!--[if !mso]><!-->
+                                <style type="text/css">
+                                    @media only screen and (max-width:480px) {
+                                    @-ms-viewport { width:320px; }
+                                    @viewport { width:320px; }
+                                    }
+                                </style>
+                                <!--<![endif]-->
+                                <!--[if mso]>
+                                <xml>
+                                <o:OfficeDocumentSettings>
+                                    <o:AllowPNG/>
+                                    <o:PixelsPerInch>96</o:PixelsPerInch>
+                                </o:OfficeDocumentSettings>
+                                </xml>
+                                <![endif]-->
+                                <!--[if lte mso 11]>
+                                <style type="text/css">
+                                    .outlook-group-fix { width:100% !important; }
+                                </style>
+                                <![endif]-->
+                                
+                                <!--[if !mso]><!-->
+                                <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+                        <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet" type="text/css">
+                                <style type="text/css">
+                                    @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+                        @import url(https://fonts.googleapis.com/css?family=Cabin:400,700);
+                                </style>
+                                <!--<![endif]-->
+                        
+                            
+                                
+                            <style type="text/css">
+                                @media only screen and (min-width:480px) {
+                                .mj-column-per-100 { width:100% !important; max-width: 100%; }
+                                }
+                            </style>
+                            
+                            
+                                <style type="text/css">
+                                
+                                
+                        
+                            @media only screen and (max-width:480px) {
+                                table.full-width-mobile { width: 100% !important; }
+                                td.full-width-mobile { width: auto !important; }
+                            }
+                            
+                                </style>
+                                <style type="text/css">.hide_on_mobile { display: none !important;} 
+                                @media only screen and (min-width: 480px) { .hide_on_mobile { display: block !important;} }
+                                .hide_section_on_mobile { display: none !important;} 
+                                @media only screen and (min-width: 480px) { .hide_section_on_mobile { display: table !important;} }
+                                .hide_on_desktop { display: block !important;} 
+                                @media only screen and (min-width: 480px) { .hide_on_desktop { display: none !important;} }
+                                .hide_section_on_desktop { display: table !important;} 
+                                @media only screen and (min-width: 480px) { .hide_section_on_desktop { display: none !important;} }
+                                [owa] .mj-column-per-100 {
+                                    width: 100%!important;
+                                    }
+                                    [owa] .mj-column-per-50 {
+                                    width: 50%!important;
+                                    }
+                                    [owa] .mj-column-per-33 {
+                                    width: 33.333333333333336%!important;
+                                    }
+                                    p {
+                                        margin: 0px;
+                                    }
+                                    @media only print and (min-width:480px) {
+                                    .mj-column-per-100 { width:100%!important; }
+                                    .mj-column-per-40 { width:40%!important; }
+                                    .mj-column-per-60 { width:60%!important; }
+                                    .mj-column-per-50 { width: 50%!important; }
+                                    mj-column-per-33 { width: 33.333333333333336%!important; }
+                                    }</style>
+                                
+                                </head>
+                                <body style="background-color:#FFFFFF;">
+                                
+                                
+                                <div style="background-color:#FFFFFF;">
+                                
+                                <table align="center" class="hide_section_on_mobile" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                                <tbody>
+                                    <tr>
+                                    <td>
+                                        
+                                
+                                <!--[if mso | IE]>
+                                <table
+                                align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_mobile-outlook" style="width:600px;" width="600"
+                                >
+                                <tr>
+                                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                                <![endif]-->
+                            
+                                
+                                <div style="Margin:0px auto;max-width:600px;">
+                                
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                                        <!--[if mso | IE]>
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                        
+                                <tr>
+                                
+                                    <td
+                                        class="" style="vertical-align:top;width:600px;"
+                                    >
+                                    <![endif]-->
+                                    
+                                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                                
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                                
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                                        
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                    <tr>
+                                    <td style="width:180px;">
+                                        
+                                <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="180">
+                            
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            
+                                </div>
+                            
+                                    <!--[if mso | IE]>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                            </table>
+                                        <![endif]-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            
+                                
+                                <!--[if mso | IE]>
+                                    </td>
+                                </tr>
+                                </table>
+                                <![endif]-->
+                            
+                                
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                <table align="center" class="hide_section_on_desktop" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffcb05;background-color:#ffcb05;width:100%;">
+                                <tbody>
+                                    <tr>
+                                    <td>
+                                        
+                                
+                                <!--[if mso | IE]>
+                                <table
+                                align="center" border="0" cellpadding="0" cellspacing="0" class="hide_section_on_desktop-outlook" style="width:600px;" width="600"
+                                >
+                                <tr>
+                                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                                <![endif]-->
+                            
+                                
+                                <div style="Margin:0px auto;max-width:600px;">
+                                
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                                        <!--[if mso | IE]>
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                        
+                                <tr>
+                                
+                                    <td
+                                        class="" style="vertical-align:top;width:600px;"
+                                    >
+                                    <![endif]-->
+                                    
+                                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                                
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                                
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
+                                        
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                <tbody>
+                                    <tr>
+                                    <td style="width:114px;">
+                                        
+                                <img height="auto" src="${mailData[0].img[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="114">
+                            
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            
+                                </div>
+                            
+                                    <!--[if mso | IE]>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                            </table>
+                                        <![endif]-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            
+                                
+                                <!--[if mso | IE]>
+                                    </td>
+                                </tr>
+                                </table>
+                                <![endif]-->
+                            
+                                
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                    <td>
+                                        
+                                
+                                <!--[if mso | IE]>
+                                <table
+                                align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                                >
+                                <tr>
+                                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                                <![endif]-->
+                            
+                                
+                                <div style="Margin:0px auto;max-width:600px;">
+                                
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                                        <!--[if mso | IE]>
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                        
+                                <tr>
+                                
+                                    <td
+                                        class="" style="vertical-align:top;width:600px;"
+                                    >
+                                    <![endif]-->
+                                    
+                                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                                
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                                
+                                    <tr>
+                                        <td align="left" style="font-size:0px;padding:15px 15px 15px 15px;word-break:break-word;">
+                                        
+                                <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;">
+                                <h1 style="font-family: 'Cabin', sans-serif; text-align: center;">Bienvenid@</h1>
+                        <h3 style="text-align: center;">Estimado(a) ${findClient.name} ${findClient.lastName}</h3>
+                        <h3 style="text-align: center;color:black">Puedes recuperar tu contrase&ntilde;a por medio de este <a style="cursor: pointer;" href="http://creacionesapicolasaleo.com/#/ingreso?code=${code}" class="text-center accLog">ENLACE</a> o por medio del siguiente boton: </h3>
+                                </div>
+                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            
+                                </div>
+                            
+                                    <!--[if mso | IE]>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                            </table>
+                                        <![endif]-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            
+                                
+                                <!--[if mso | IE]>
+                                    </td>
+                                </tr>
+                                </table>
+                                <![endif]-->
+                            
+                                
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                    <td>
+                                        
+                                
+                                <!--[if mso | IE]>
+                                <table
+                                align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                                >
+                                <tr>
+                                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                                <![endif]-->
+                            
+                                
+                                <div style="Margin:0px auto;max-width:600px;">
+                                
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                                        <!--[if mso | IE]>
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                        
+                                <tr>
+                                
+                                    <td
+                                        class="" style="vertical-align:top;width:600px;"
+                                    >
+                                    <![endif]-->
+                                    
+                                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                                
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                                
+                                    <tr>
+                                        <td align="center" vertical-align="middle" style="font-size:0px;padding:20px 20px 20px 20px;word-break:break-word;">
+                                        
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:auto;line-height:100%;">
+                                <tr>
+                                    <td align="center" bgcolor="#42210b" role="presentation" style="border:0px solid #000;border-radius:5px;cursor:auto;mso-padding-alt:9px 26px 9px 26px;background:#42210b;" valign="middle">
+                                    <a href="http://creacionesapicolasaleo.com/#/ingreso?code=${code}" style="display:inline-block;background:#42210b;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:100%;Margin:0;text-decoration:none;text-transform:none;padding:9px 26px 9px 26px;mso-padding-alt:0px;border-radius:5px;" target="_blank">
+                                        <div><strong><span style="font-size: 14px;">Cambiar contrase&ntilde;a</span></strong></div>
+                                    </a>
+                                    </td>
+                                </tr>
+                                </table>
+                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            
+                                </div>
+                            
+                                    <!--[if mso | IE]>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                            </table>
+                                        <![endif]-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            
+                                
+                                <!--[if mso | IE]>
+                                    </td>
+                                </tr>
+                                </table>
+                                <![endif]-->
+                            
+                                
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                    <td>
+                                        
+                                
+                                <!--[if mso | IE]>
+                                <table
+                                align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600"
+                                >
+                                <tr>
+                                    <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                                <![endif]-->
+                            
+                                
+                                <div style="Margin:0px auto;max-width:600px;">
+                                
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="direction:ltr;font-size:0px;padding:9px 0px 9px 0px;text-align:center;vertical-align:top;">
+                                        <!--[if mso | IE]>
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                        
+                                <tr>
+                                
+                                    <td
+                                        class="" style="vertical-align:top;width:600px;"
+                                    >
+                                    <![endif]-->
+                                    
+                                <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                                
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                                
+                                    <tr>
+                                        <td align="center" style="font-size:0px;padding:10px 10px 10px 10px;word-break:break-word;">
+                                        
+                                
+                            <!--[if mso | IE]>
+                                <table
+                                align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
+                                >
+                                <tr>
+                                
+                                        <td>
+                                    <![endif]-->
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                                        
+                                <tr>
+                                <td style="padding:4px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                                    <tr>
+                                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                                        <a href="${mailData[0].facebook}" target="_blank">
+                                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664348.jpg" style="border-radius:3px;display:block;" width="32">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                
+                                </tr>
+                            
+                                        </table>
+                                    <!--[if mso | IE]>
+                                        </td>
+                                    
+                                        <td>
+                                    <![endif]-->
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                                        
+                                <tr>
+                                <td style="padding:4px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                                    <tr>
+                                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                                        <a href="${mailData[0].instagram}" target="_blank">
+                                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664357.jpg" style="border-radius:3px;display:block;" width="32">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                
+                                </tr>
+                            
+                                        </table>
+                                    <!--[if mso | IE]>
+                                        </td>
+                                    
+                                        <td>
+                                    <![endif]-->
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                                        
+                                <tr>
+                                <td style="padding:4px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                                    <tr>
+                                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                                        <a href="${mailData[0].location}" target="_blank">
+                                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664364.jpg" style="border-radius:3px;display:block;" width="32">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                
+                                </tr>
+                            
+                                        </table>
+                                    <!--[if mso | IE]>
+                                        </td>
+                                    
+                                        <td>
+                                    <![endif]-->
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                                        
+                                <tr>
+                                <td style="padding:4px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                                    <tr>
+                                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                                        <a href="${mailData[0].whatsapp}" target="_blank">
+                                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664370.jpg" style="border-radius:3px;display:block;" width="32">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                
+                                </tr>
+                            
+                                        </table>
+                                    <!--[if mso | IE]>
+                                        </td>
+                                    
+                                        <td>
+                                    <![endif]-->
+                                        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="float:none;display:inline-table;">
+                                        
+                                <tr>
+                                <td style="padding:4px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:transparent;border-radius:3px;width:32px;">
+                                    <tr>
+                                        <td style="padding:7px;font-size:0;height:32px;vertical-align:middle;width:32px;">
+                                        <a href="mailto:${mailData[0].mail}" target="_blank">
+                                            <img height="32" src="https://s3-eu-west-1.amazonaws.com/topolio/uploads/5fb4768577f50/1605664419.jpg" style="border-radius:3px;display:block;" width="32">
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                
+                                </tr>
+                            
+                                        </table>
+                                    <!--[if mso | IE]>
+                                        </td>
+                                    
+                                    </tr>
+                                </table>
+                                <![endif]-->
+                            
+                            
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            
+                                </div>
+                            
+                                    <!--[if mso | IE]>
+                                    </td>
+                                    
+                                </tr>
+                                
+                                            </table>
+                                        <![endif]-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            
+                                
+                                <!--[if mso | IE]>
+                                    </td>
+                                </tr>
+                                </table>
+                                <![endif]-->
+                            
+                                
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            
+                                </div>
+                            
+                                </body>
+                            </html>`
+                        }
+                        try{
+                            const send = await Mails.sendMail(mail)
+                            res.json({status:'ok'})
+                        }
+                        catch(err){
+                            console.log(err)
+                        }
+                        
+                    }
+                }catch(err) {
+                    res.send('error: ' + err)
+                }
+            }
+        }catch (err){
+            res.send(err)
+        }
       }
   } catch(err) {
       res.send('error: ' + err)
