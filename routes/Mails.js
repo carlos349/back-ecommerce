@@ -1312,7 +1312,7 @@ mails.post('/', protectRoute, (req, res) => {
         twitter: req.body.twitter,
         whatsapp: req.body.whatsapp,
         location: req.body.location,
-        companyName: req.body.companyName,
+        companyName: req.body.companyname,
         img: req.body.img
     }
     Mail.create(data)
@@ -1367,7 +1367,7 @@ mails.put('/:id', protectRoute, (req, res) => {
             twitter: req.body.twitter,
             whatsapp: req.body.whatsapp,
             location: req.body.location,
-            companyName: req.body.companyName,
+            companyName: req.body.companyname,
             img: req.body.img
         }
     }).then(mailEdit => {
