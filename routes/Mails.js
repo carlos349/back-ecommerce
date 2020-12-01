@@ -2589,16 +2589,9 @@ mails.post('/subs', async (req, res, next) => {
             }
             
             Mails.sendMail(mail)
-            .then(send => {
-                Mails.sendMail(mailTwo)
-                .then(senTwo => {
-                    res.json({status: 'ok'})
-                }).catch(err => {
-                    res.send(err)
-                })
-            }).catch(err => {
-                res.send(err)
-            })
+            Mails.sendMail(mailTwo)
+            res.json({status: 'ok'})
+            
         }
     })
 })
@@ -3203,16 +3196,9 @@ mails.post('/quotation', async (req, res, next) => {
             }
             
             Mails.sendMail(mail)
-            .then(send => {
-                Mails.sendMail(mailTwo)
-                .then(senTwo => {
-                    res.json({status: 'ok'})
-                }).catch(err => {
-                    res.send(err)
-                })
-            }).catch(err => {
-                res.send(err)
-            })
+            Mails.sendMail(mailTwo)
+            res.json({status: 'ok'})
+            
         }
     })
   
