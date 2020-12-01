@@ -471,7 +471,7 @@ mails.get('/mailPromotions/:id', protectRoute, (req, res) => {
                             <tr>
                               <td style="width:600px;">
                                 
-                        <img height="auto" src="${promotion.image[0].url} style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
+                        <img height="auto" src="${promotion.image[0].url}" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600">
                       
                               </td>
                             </tr>
