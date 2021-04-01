@@ -5,7 +5,7 @@ const s3 = require('../private/credentials-s3')
 const uploadS3 = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'syswa-ecommerce',
+        bucket: 'syswa-gestion',
         acl: 'public-read',
         metadata: function (req, file, cb) {
             cb(null, {fieldName: file.fieldname});
