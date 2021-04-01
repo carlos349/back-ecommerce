@@ -123,6 +123,7 @@ promotions.put('/:id', protectRoute, (req, res) => {
 })
 
 promotions.post('/uploadImage', uploadS3.single("file"), (req, res) => {
+    res.header('Access-Control-Allow-Origin','*')
     res.json({status:"done", name: req.file.location, url: req.file.location, thumbUrl: req.file.location})
 })
 
