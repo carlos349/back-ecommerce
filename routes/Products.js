@@ -223,7 +223,7 @@ products.delete('/:id', protectRoute, async (req, res) => {
     }
 })
 
-products.post('/uploadImage', protectRoute, uploadS3.single("file"), (req, res) => {
+products.post('/uploadImage', uploadS3.single("file"), (req, res) => {
     res.json({status:"done", name: req.file.location, url:req.file.location , thumbUrl: req.file.location})
 })
 
