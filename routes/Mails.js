@@ -1334,7 +1334,7 @@ mails.get('/ifMail', (req, res) => {
   })
 })
 
-mails.post('/uploadImage', uploadS3.single("file"), (req, res) => {
+mails.post('/uploadImage', protectRoute, uploadS3.single("file"), (req, res) => {
   res.json({status:"done", name:req.file.location, url:req.file.location, thumbUrl:req.file.location})
 })
 
