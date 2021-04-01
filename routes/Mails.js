@@ -6,18 +6,7 @@ const mailSchema = require('../models/Mail')
 const clientSchema = require('../models/Clients')
 const promotionSchema = require('../models/Promotions')
 const productSchema = require('../models/Products')
-const multer = require('multer')
-const { diskStorage } = require('multer')
-const path = require('path')
-const storage = diskStorage({
-	destination: 'public/logos',
-	filename: (req, file, cb) => {
-		cb(null, Date.now() + path.extname(file.originalname));
-	}
-})
-const upload = multer({
-	storage
-})
+const uploadS3 = require('../common-midleware/index')
 
 const endpointMail = require('../private/endpointMail')
 const email = require('../modelsMail/Mails')
@@ -1345,8 +1334,8 @@ mails.get('/ifMail', (req, res) => {
   })
 })
 
-mails.post('/uploadImage', upload.single("file"), (req, res) => {
-  res.json({status:"done",name:req.file.filename, url:"https://backecommerce.syswa.net/static/logos/"+req.file.filename, thumbUrl:"https://backecommerce.syswa.net/static/logos/"+req.file.filename})
+mails.post('/uploadImage', uploadS3.single("file"), (req, res) => {
+  res.json({status:"done", name:req.file.location, url:req.file.location, thumbUrl:req.file.location})
 })
 
 mails.get

@@ -3,18 +3,7 @@ const sales = express.Router()
 const mongoose = require('mongoose')
 const protectRoute = require('../securityToken/verifyToken')
 const saleSchema = require('../models/Sales')
-const multer = require('multer')
-const { diskStorage } = require('multer')
-const path = require('path')
-const storage = diskStorage({
-	destination: 'public/products',
-	filename: (req, file, cb) => {
-		cb(null, Date.now() + path.extname(file.originalname));
-	}
-})
-const upload = multer({
-	storage
-})
+const uploadS3 = require('../common-midleware/index')
 const cors = require('cors')
 sales.use(cors())
 
@@ -35,7 +24,7 @@ sales.get('/', protectRoute, async (req, res) => {
     }
 })
 
-sales.post('/', upload.single("transfer"), (req, res) => {
+sales.post('/', uploadS3.single("transfer"), (req, res) => {
     const database = req.headers['x-database-connect'];
     const conn = mongoose.createConnection('mongodb://localhost/'+database, {
         useNewUrlParser: true,
@@ -53,7 +42,7 @@ sales.post('/', upload.single("transfer"), (req, res) => {
         createdAt: new Date()
     }
     if (req.file) {
-        data.payInformation.transferReceipt = req.file.filename
+        data.payInformation.transferReceipt = req.file.location
     }
     Sale.create(data)
     .then(saleCreate => {

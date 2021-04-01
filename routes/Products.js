@@ -5,18 +5,7 @@ const categoriesSchema = require('../models/Categories')
 const mongoose = require('mongoose')
 const protectRoute = require('../securityToken/verifyToken')
 const productSchema = require('../models/Products')
-const multer = require('multer')
-const { diskStorage } = require('multer')
-const path = require('path')
-const storage = diskStorage({
-	destination: 'public/products',
-	filename: (req, file, cb) => {
-		cb(null, Date.now() + path.extname(file.originalname));
-	}
-})
-const upload = multer({
-	storage
-})
+const uploadS3 = require('../common-midleware/index')
 const cors = require('cors')
 products.use(cors())
 
@@ -234,8 +223,8 @@ products.delete('/:id', protectRoute, async (req, res) => {
     }
 })
 
-products.post('/uploadImage', upload.single("file"), (req, res) => {
-    res.json({status:"done",name:req.file.filename,url:"https://backecommerce.syswa.net/static/products/"+req.file.filename, thumbUrl:"https://backecommerce.syswa.net/static/products/"+req.file.filename})
+products.post('/uploadImage', uploadS3.single("file"), (req, res) => {
+    res.json({status:"done", name: req.file.location, url:req.file.location , thumbUrl: req.file.location})
 })
 
 module.exports = products

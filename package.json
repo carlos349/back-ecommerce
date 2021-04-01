@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/carlos349/back-ecommerce#readme",
   "dependencies": {
+    "aws-sdk": "^2.877.0",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -28,6 +29,7 @@
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "nodemailer": "^6.4.12",
     "nodemon": "^2.0.4"
   }
