@@ -15,5 +15,5 @@ const uploadS3 = multer({
         }
     })
 })
-console.log(uploadS3)
+
 module.exports = uploadS3
