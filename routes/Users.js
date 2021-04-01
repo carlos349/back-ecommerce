@@ -100,7 +100,7 @@ users.post('/login', (req, res) => {
                             user: findUser.user,
                             LastAccess: findUser.LastAccess
                         }
-                        let token = jwt.sign(payload, key, {
+                        let token = jwt.sign(payload, key.key, {
                             expiresIn: 60 * 60 * 24
                         })
                         res.json({status: 'user login', token: token})
